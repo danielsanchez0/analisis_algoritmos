@@ -13,7 +13,7 @@
 }
 
 .male {
-  fill: rgb(22, 130, 218);
+  fill: rgb(0, 0, 0);
 }
 
 .female {
@@ -30,7 +30,7 @@ div.tooltip {
   width: 110px;
   padding: 10px;
   font: 12px sans-serif;
-  background: lightsteelblue;
+  background: white;
   border: 0;
   border-radius: 8px;
   pointer-events: none;
