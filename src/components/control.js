@@ -5,6 +5,10 @@ import Loader from "react-loader-spinner";
 const Control = () => {
   const [data, setData] = useState("");
   const [loading, setLoading] = useState(true);
+  const [idNodo, setIdNodo] = useState("");
+  const [idTarget, setIdTarget] = useState("");
+  const [idSource, setIdSource] = useState("");
+  const [distance, setDistance] = useState("");
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/graph/9", {})
@@ -15,6 +19,59 @@ const Control = () => {
         setLoading(false);
       });
   }, []);
+  const addNode = () => {
+    console.log("PUT");
+    console.log(idNodo);
+    setLoading(true);
+    fetch("http://127.0.0.1:8000/graph", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        tarea: "addNode",
+        grafoId: 9,
+        id: idNodo,
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        setData(result);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const addLink = () => {
+    console.log("PUT");
+    setLoading(true);
+    fetch("http://127.0.0.1:8000/graph", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        tarea: "addLinks",
+        grafoId: 9,
+        source: idSource,
+        target: idTarget,
+        distance: distance,
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+        setData(result);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const nodeHoverTooltip = React.useCallback((node) => {
     return `<div>${node.name}</div>`;
   }, []);
@@ -27,13 +84,66 @@ const Control = () => {
       width={100}
     />
   ) : (
-    <section className="Main">
-      <ForceGraph
-        linksData={data.links}
-        nodesData={data.nodes}
-        nodeHoverTooltip={nodeHoverTooltip}
-      />
-    </section>
+    <div className="">
+      <div className="form-group">
+        <div className="card-body">
+          <label>idNodo:</label>
+          <input
+            className="form-control"
+            type="text"
+            placeholder="escribe el id del Nodo"
+            value={idNodo}
+            onChange={(e) => setIdNodo(e.target.value)}
+          />
+
+          <div className="card-footer">
+            <button className="btn btn-primary" onClick={() => addNode()}>
+              Agregar Nodo
+            </button>
+          </div>
+        </div>
+
+        <div className="card-body">
+          <label>idSource:</label>
+          <input
+            className="form-control"
+            type="text"
+            placeholder="escribe el id del Nodo Origen"
+            value={idSource}
+            onChange={(e) => setIdSource(e.target.value)}
+          />
+          <label>idDestino:</label>
+          <input
+            className="form-control"
+            type="text"
+            placeholder="escribe el id del Nodo Destino"
+            value={idTarget}
+            onChange={(e) => setIdTarget(e.target.value)}
+          />
+          <label>Distancia:</label>
+          <input
+            className="form-control"
+            type="text"
+            placeholder="escribe la distancia entre nodos"
+            value={distance}
+            onChange={(e) => setDistance(e.target.value)}
+          />
+
+          <div className="card-footer">
+            <button className="btn btn-primary" onClick={() => addLink()}>
+              Agregar Arista
+            </button>
+          </div>
+        </div>
+      </div>
+      <section className="Main">
+        <ForceGraph
+          linksData={data.links}
+          nodesData={data.nodes}
+          nodeHoverTooltip={nodeHoverTooltip}
+        />
+      </section>
+    </div>
   );
 };
 
