@@ -22,6 +22,11 @@ export function runForceGraph(
     return d.label;
   };
 
+  const icon2 = (d) => {
+    console.log(d.distance);
+    return d.distance;
+  };
+
   const getClass = (d) => {
     return d.gender === "male" ? styles.male : styles.female;
   };
@@ -141,6 +146,24 @@ export function runForceGraph(
     })
     .call(drag(simulation));
 
+  const label2 = svg
+    .append("g")
+    .attr("class", "labels")
+    .selectAll("text")
+    .data(links)
+    .enter()
+    .append("text")
+    .on("dblclick", (d) => {
+      oe(d);
+    })
+    .attr("text-anchor", "middle")
+    .attr("dominant-baseline", "central")
+    .attr("class", (d) => `fa ${getClass(d)}`)
+    .text((d) => {
+      return icon2(d);
+    })
+    .style("font-size", "10px");
+
   label
     .on("mouseover", (d) => {
       addTooltip(nodeHoverTooltip, d, d3.event.pageX, d3.event.pageY);
@@ -156,6 +179,10 @@ export function runForceGraph(
       .attr("y1", (d) => d.source.y)
       .attr("x2", (d) => d.target.x)
       .attr("y2", (d) => d.target.y);
+
+    label2
+      .attr("x", (d) => (d.source.x + d.target.x) / 2)
+      .attr("y", (d) => (d.source.y + d.target.y) / 2);
 
     // update node positions
     node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
