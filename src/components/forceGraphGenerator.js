@@ -31,6 +31,7 @@ export function runForceGraph(
       if (!d3.event.active) simulation.alphaTarget(0.3).restart();
       d.fx = d.x;
       d.fy = d.y;
+      console.log("ARRASTRA");
     };
 
     const dragged = (d) => {
@@ -92,8 +93,13 @@ export function runForceGraph(
       d3.zoom().on("zoom", function () {
         svg.attr("transform", d3.event.transform);
       })
-    );
+    )
+    .on("dblclick.zoom", null); // para evitar el zoom al dar doble click
 
+  // Se llama al dar doble click
+  const oe = (d) => {
+    console.log(d);
+  };
   const link = svg
     .append("g")
     .attr("stroke", "#999")
@@ -110,6 +116,9 @@ export function runForceGraph(
     .selectAll("circle")
     .data(nodes)
     .join("circle")
+    .on("dblclick", (d) => {
+      oe(d);
+    })
     .attr("r", 12)
     .attr("fill", color)
     .call(drag(simulation));
@@ -121,6 +130,9 @@ export function runForceGraph(
     .data(nodes)
     .enter()
     .append("text")
+    .on("dblclick", (d) => {
+      oe(d);
+    })
     .attr("text-anchor", "middle")
     .attr("dominant-baseline", "central")
     .attr("class", (d) => `fa ${getClass(d)}`)
