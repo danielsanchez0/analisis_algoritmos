@@ -90,21 +90,34 @@ export function runForceGraph(
     .force("x", d3.forceX())
     .force("y", d3.forceY());
 
+  // se activa al dar click sobre el contenedor SVG
+  const positionClick = (x, y) => {
+    console.log("POSICION ", x, y);
+  };
+
   const svg = d3
     .select(container)
     .append("svg")
     .attr("viewBox", [-width / 2, -height / 2, width, height])
+    .on("click", () => {
+      positionClick(d3.event.pageX, d3.event.pageY);
+    })
     .call(
       d3.zoom().on("zoom", function () {
         svg.attr("transform", d3.event.transform);
       })
     )
-    .on("dblclick.zoom", null); // para evitar el zoom al dar doble click
-
-  // Se llama al dar doble click
+    .on("dblclick.zoom", null); // para evitar el zoom al dar doble
+  // Se llama al dar doble click sobre el nodo
   const oe = (d) => {
     console.log(d);
   };
+
+  // Se activa al dar click sobre la arista
+  const linked = (d) => {
+    console.log("Arista ", d);
+  };
+
   const link = svg
     .append("g")
     .attr("stroke", "#999")
@@ -112,6 +125,9 @@ export function runForceGraph(
     .selectAll("line")
     .data(links)
     .join("line")
+    .on("click", (d) => {
+      linked(d);
+    })
     .attr("stroke-width", (d) => Math.sqrt(d.value));
 
   const node = svg
@@ -153,8 +169,8 @@ export function runForceGraph(
     .data(links)
     .enter()
     .append("text")
-    .on("dblclick", (d) => {
-      oe(d);
+    .on("click", (d) => {
+      linked(d);
     })
     .attr("text-anchor", "middle")
     .attr("dominant-baseline", "central")
