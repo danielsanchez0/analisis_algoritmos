@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ForceGraph } from "./forceGraph";
 import Loader from "react-loader-spinner";
+import {Link,useParams,useHistory} from 'react-router-dom'
 
 const Control = () => {
   const [data, setData] = useState("");
@@ -9,9 +10,10 @@ const Control = () => {
   const [idTarget, setIdTarget] = useState("");
   const [idSource, setIdSource] = useState("");
   const [distance, setDistance] = useState("");
+  const {grafoid} = useParams()
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/graph/9", {})
+    fetch("http://127.0.0.1:8000/graph/"+grafoid, {})
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
@@ -30,7 +32,7 @@ const Control = () => {
       },
       body: JSON.stringify({
         tarea: "addNode",
-        grafoId: 9,
+        grafoId: grafoid,
         id: idNodo,
       }),
     })
@@ -55,7 +57,7 @@ const Control = () => {
       },
       body: JSON.stringify({
         tarea: "addLinks",
-        grafoId: 9,
+        grafoId: grafoid,
         source: idSource,
         target: idTarget,
         distance: distance,
@@ -84,7 +86,9 @@ const Control = () => {
       width={100}
     />
   ) : (
-    <div className="">
+    <div className="row">
+      <div className="col-md-3">
+      <button id='saveButton'>Export my D3 visualization to PNG</button>
       <div className="form-group">
         <div className="card-body">
           <label>idNodo:</label>
@@ -136,6 +140,8 @@ const Control = () => {
           </div>
         </div>
       </div>
+      </div>
+      <div className="col-md-9">
       <section className="Main">
         <ForceGraph
           linksData={data.links}
@@ -143,6 +149,7 @@ const Control = () => {
           nodeHoverTooltip={nodeHoverTooltip}
         />
       </section>
+      </div>
     </div>
   );
 };
