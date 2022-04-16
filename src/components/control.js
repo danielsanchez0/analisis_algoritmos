@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ForceGraph } from "./forceGraph";
 import Loader from "react-loader-spinner";
-import {Link,useParams,useHistory} from 'react-router-dom'
+import { Link, useParams, useHistory } from "react-router-dom";
 
 const Control = () => {
   const [data, setData] = useState("");
@@ -10,10 +10,10 @@ const Control = () => {
   const [idTarget, setIdTarget] = useState("");
   const [idSource, setIdSource] = useState("");
   const [distance, setDistance] = useState("");
-  const {grafoid} = useParams()
+  const { grafoid } = useParams();
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/graph/"+grafoid, {})
+    fetch("http://127.0.0.1:8000/graph/" + grafoid, {})
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
@@ -57,10 +57,10 @@ const Control = () => {
       },
       body: JSON.stringify({
         tarea: "addLinks",
-        grafoId: grafoid,
-        source: idSource,
-        target: idTarget,
-        distance: distance,
+        grafoId: parseInt(grafoid),
+        source: parseInt(idSource),
+        target: parseInt(idTarget),
+        distance: parseInt(distance),
       }),
     })
       .then((res) => res.json())
@@ -88,67 +88,67 @@ const Control = () => {
   ) : (
     <div className="row">
       <div className="col-md-3">
-      <button id='saveButton'>Export my D3 visualization to PNG</button>
-      <div className="form-group">
-        <div className="card-body">
-          <label>idNodo:</label>
-          <input
-            className="form-control"
-            type="text"
-            placeholder="escribe el id del Nodo"
-            value={idNodo}
-            onChange={(e) => setIdNodo(e.target.value)}
-          />
+        <button id="saveButton">Export my D3 visualization to PNG</button>
+        <div className="form-group">
+          <div className="card-body">
+            <label>idNodo:</label>
+            <input
+              className="form-control"
+              type="text"
+              placeholder="escribe el id del Nodo"
+              value={idNodo}
+              onChange={(e) => setIdNodo(e.target.value)}
+            />
 
-          <div className="card-footer">
-            <button className="btn btn-primary" onClick={() => addNode()}>
-              Agregar Nodo
-            </button>
+            <div className="card-footer">
+              <button className="btn btn-primary" onClick={() => addNode()}>
+                Agregar Nodo
+              </button>
+            </div>
+          </div>
+
+          <div className="card-body">
+            <label>idSource:</label>
+            <input
+              className="form-control"
+              type="text"
+              placeholder="escribe el id del Nodo Origen"
+              value={idSource}
+              onChange={(e) => setIdSource(e.target.value)}
+            />
+            <label>idDestino:</label>
+            <input
+              className="form-control"
+              type="text"
+              placeholder="escribe el id del Nodo Destino"
+              value={idTarget}
+              onChange={(e) => setIdTarget(e.target.value)}
+            />
+            <label>Distancia:</label>
+            <input
+              className="form-control"
+              type="text"
+              placeholder="escribe la distancia entre nodos"
+              value={distance}
+              onChange={(e) => setDistance(e.target.value)}
+            />
+
+            <div className="card-footer">
+              <button className="btn btn-primary" onClick={() => addLink()}>
+                Agregar Arista
+              </button>
+            </div>
           </div>
         </div>
-
-        <div className="card-body">
-          <label>idSource:</label>
-          <input
-            className="form-control"
-            type="text"
-            placeholder="escribe el id del Nodo Origen"
-            value={idSource}
-            onChange={(e) => setIdSource(e.target.value)}
-          />
-          <label>idDestino:</label>
-          <input
-            className="form-control"
-            type="text"
-            placeholder="escribe el id del Nodo Destino"
-            value={idTarget}
-            onChange={(e) => setIdTarget(e.target.value)}
-          />
-          <label>Distancia:</label>
-          <input
-            className="form-control"
-            type="text"
-            placeholder="escribe la distancia entre nodos"
-            value={distance}
-            onChange={(e) => setDistance(e.target.value)}
-          />
-
-          <div className="card-footer">
-            <button className="btn btn-primary" onClick={() => addLink()}>
-              Agregar Arista
-            </button>
-          </div>
-        </div>
-      </div>
       </div>
       <div className="col-md-9">
-      <section className="Main">
-        <ForceGraph
-          linksData={data.links}
-          nodesData={data.nodes}
-          nodeHoverTooltip={nodeHoverTooltip}
-        />
-      </section>
+        <section className="Main">
+          <ForceGraph
+            linksData={data.links}
+            nodesData={data.nodes}
+            nodeHoverTooltip={nodeHoverTooltip}
+          />
+        </section>
       </div>
     </div>
   );
