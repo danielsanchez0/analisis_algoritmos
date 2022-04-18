@@ -121,7 +121,7 @@ export function runForceGraph(
   };
 
   const icon2 = (d) => {
-    console.log(d.distance);
+    //console.log(d.distance);
     return d.distance;
   };
 
