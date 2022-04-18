@@ -11,20 +11,25 @@ const Home = () => {
   const loadFiles = (e) => {
     setFiles(e);
   };
-  const insertFile = () => {
-    console.log(files);
+  
+  const subirArchivo = () => {
+    setLoading(true);
+    console.log(files)
+    const dataArchivo = new FormData()
+    dataArchivo.append("myfile",files)
 
     fetch("http://127.0.0.1:8000/archivo", {
       method: "POST",
-      body: JSON.stringify({
-        myfile: files[0],
-      }),
+      body: dataArchivo
     })
+      .then((res) => res.json())
       .then((result) => {
-        console.log(result.data);
+        console.log(result);
+        setLoading(false);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        setLoading(false)
+        console.log(err);
       });
   };
 
@@ -88,18 +93,15 @@ const Home = () => {
     <div className="home">
       <div className="row">
         <div className="col-md-8">
-          <br></br>
-          <form method="POST" encType="multipart/form-data">
             <input
               type="file"
               name="files"
-              onChange={(e) => setFiles(e.target.value)}
+              onChange={(e) => setFiles(e.target.files[0])}
             />
             <br></br>
-            <button className="btn btn-primary" onClick={() => insertFile()}>
+            <button className="btn btn-primary" onClick={() => subirArchivo()}>
               Insertar Archivo
             </button>
-          </form>
           <br></br>
           <br></br>
           <div className="form-group">
