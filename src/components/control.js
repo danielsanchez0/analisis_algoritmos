@@ -151,7 +151,7 @@ const Control = () => {
             </div>
             <div className="card-footer">
               <button className="btn btn-primary" onClick={() => resetGraph()}>
-                Descartar
+                Descartar cambios
               </button>
             </div>
           </div>
