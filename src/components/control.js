@@ -12,7 +12,8 @@ const Control = () => {
   const [idSource, setIdSource] = useState("");
   const [distance, setDistance] = useState("");
   const { grafoid } = useParams();
-
+  const [bandera, setBander] = useState("");
+  let ban;
   const saveData = (data) => {
     console.log("Me llamó");
     const finished = (error) => {
@@ -29,19 +30,20 @@ const Control = () => {
     };
   };
 
-  var dataGraph;
   useEffect(() => {
     fetch("http://127.0.0.1:8000/graph/" + grafoid, {})
       .then((res) => res.json())
       .then((result) => {
-        saveData(result);
+        setBander(result);
+        console.log("obtuve ", { bandera });
+        //console.log("Llegó ", result["grafoId"]);
         setData(result);
         setLoading(false);
       });
   }, []);
   const addNode = () => {
     console.log("PUT");
-    console.log(idNodo);
+    console.log("tengo ", { bandera });
     setLoading(true);
     fetch("http://127.0.0.1:8000/graph", {
       method: "PUT",
@@ -56,7 +58,7 @@ const Control = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        saveData(result);
+        //saveData(result);
         setData(result);
         setLoading(false);
       })
@@ -83,7 +85,6 @@ const Control = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        dataGraph = result;
         setData(result);
         setLoading(false);
       })
@@ -92,6 +93,31 @@ const Control = () => {
       });
   };
 
+  const resetGraph = () => {
+    console.log("PUT");
+    setLoading(true);
+    fetch("http://127.0.0.1:8000/graph", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        tarea: "reset",
+        grafoId: bandera["grafoId"],
+        grafoName: bandera["grafoName"],
+        nodes: bandera["nodes"],
+        links: bandera["links"],
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        setData(result);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const nodeHoverTooltip = React.useCallback((node) => {
     return `<div>${node.name}</div>`;
   }, []);
@@ -121,6 +147,11 @@ const Control = () => {
             <div className="card-footer">
               <button className="btn btn-primary" onClick={() => addNode()}>
                 Agregar Nodo
+              </button>
+            </div>
+            <div className="card-footer">
+              <button className="btn btn-primary" onClick={() => resetGraph()}>
+                Descartar
               </button>
             </div>
           </div>
