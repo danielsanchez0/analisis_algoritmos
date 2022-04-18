@@ -52,8 +52,8 @@ const Control = () => {
       },
       body: JSON.stringify({
         tarea: "addNode",
-        grafoId: grafoid,
-        id: idNodo,
+        grafoId: parseInt(grafoid),
+        id: parseInt(idNodo),
       }),
     })
       .then((res) => res.json())
