@@ -13,21 +13,13 @@ const Control = () => {
   const [distance, setDistance] = useState("");
   const { grafoid } = useParams();
   const [bandera, setBander] = useState("");
-  let ban;
-  const saveData = (data) => {
-    //console.log("Me llamó");
-    const finished = (error) => {
-      if (error) {
-        console.error(error);
-        return;
-      }
+  const [temporal, setTemporal] = useState("");
 
-      const jsonData = JSON.stringify(data, null, 2);
-      var blob = new Blob([JSON.stringify(jsonData)], {
-        type: "text/plain;charset=utf-8",
-      });
-      fs.saveAs(blob, "hello world.json");
-    };
+  const saveAs = async () => {
+    const handle = await window.showSaveFilePicker();
+    const writer = await handle.createWritable();
+    await writer.write(JSON.stringify(temporal));
+    await writer.close();
   };
 
   useEffect(() => {
@@ -35,6 +27,7 @@ const Control = () => {
       .then((res) => res.json())
       .then((result) => {
         setBander(result);
+        setTemporal(result);
         //console.log("obtuve ", { bandera });
         //console.log("Llegó ", result["grafoId"]);
         setData(result);
@@ -58,6 +51,7 @@ const Control = () => {
     })
       .then((res) => res.json())
       .then((result) => {
+        setTemporal(result);
         //saveData(result);
         setData(result);
         setLoading(false);
@@ -85,6 +79,7 @@ const Control = () => {
     })
       .then((res) => res.json())
       .then((result) => {
+        setTemporal(result);
         setData(result);
         setLoading(false);
       })
@@ -111,6 +106,7 @@ const Control = () => {
     })
       .then((res) => res.json())
       .then((result) => {
+        setTemporal(result);
         setData(result);
         setLoading(false);
       })
@@ -149,11 +145,11 @@ const Control = () => {
                 Agregar Nodo
               </button>
             </div>
-            <div className="card-footer">
+            {/* <div className="card-footer">
               <button className="btn btn-primary" onClick={() => resetGraph()}>
                 Descartar cambios
               </button>
-            </div>
+            </div> */}
           </div>
 
           <div className="card-body">
@@ -198,6 +194,14 @@ const Control = () => {
             nodeHoverTooltip={nodeHoverTooltip}
           />
         </section>
+        <div className="card-footer">
+          <button className="btn btn-primary" onClick={() => resetGraph()}>
+            Descartar cambios
+          </button>
+          <button className="btn btn-primary" onClick={() => saveAs()}>
+            Guardar información
+          </button>
+        </div>
       </div>
     </div>
   );
