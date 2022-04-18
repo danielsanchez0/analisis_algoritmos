@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ForceGraph } from "./forceGraph";
 import Loader from "react-loader-spinner";
 import { Link, useParams, useHistory } from "react-router-dom";
+import * as fs from "file-saver";
 
 const Control = () => {
   const [data, setData] = useState("");
@@ -12,11 +13,28 @@ const Control = () => {
   const [distance, setDistance] = useState("");
   const { grafoid } = useParams();
 
+  const saveData = (data) => {
+    console.log("Me llamó");
+    const finished = (error) => {
+      if (error) {
+        console.error(error);
+        return;
+      }
+
+      const jsonData = JSON.stringify(data, null, 2);
+      var blob = new Blob([JSON.stringify(jsonData)], {
+        type: "text/plain;charset=utf-8",
+      });
+      fs.saveAs(blob, "hello world.json");
+    };
+  };
+
+  var dataGraph;
   useEffect(() => {
     fetch("http://127.0.0.1:8000/graph/" + grafoid, {})
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
+        saveData(result);
         setData(result);
         setLoading(false);
       });
@@ -38,7 +56,7 @@ const Control = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
+        saveData(result);
         setData(result);
         setLoading(false);
       })
@@ -65,7 +83,7 @@ const Control = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
+        dataGraph = result;
         setData(result);
         setLoading(false);
       })
