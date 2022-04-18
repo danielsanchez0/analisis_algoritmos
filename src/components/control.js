@@ -15,7 +15,7 @@ const Control = () => {
   const [bandera, setBander] = useState("");
   let ban;
   const saveData = (data) => {
-    console.log("Me llamó");
+    //console.log("Me llamó");
     const finished = (error) => {
       if (error) {
         console.error(error);
@@ -35,7 +35,7 @@ const Control = () => {
       .then((res) => res.json())
       .then((result) => {
         setBander(result);
-        console.log("obtuve ", { bandera });
+        //console.log("obtuve ", { bandera });
         //console.log("Llegó ", result["grafoId"]);
         setData(result);
         setLoading(false);
@@ -43,7 +43,7 @@ const Control = () => {
   }, []);
   const addNode = () => {
     console.log("PUT");
-    console.log("tengo ", { bandera });
+    //console.log("tengo ", { bandera });
     setLoading(true);
     fetch("http://127.0.0.1:8000/graph", {
       method: "PUT",
