@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Loader from "react-loader-spinner";
 
 const Home = () => {
+  const history = useHistory()
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [grafoNombre, setGrafoNombre] = useState("");
@@ -25,6 +26,7 @@ const Home = () => {
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
+        history.push('/grafo/'+result.grafoId)
         setLoading(false);
       })
       .catch((err) => {
