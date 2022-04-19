@@ -175,7 +175,16 @@ export function runForceGraph(
     }
 
     const saveImg = async (dataBlob) => {
-      const handle = await window.showSaveFilePicker();
+      const handle = await window.showSaveFilePicker({
+        suggestedName: "grafo.png",
+        types: [
+          {
+            description: "Images",
+            accept: { "image/png": [".png"] },
+          },
+        ],
+        excludeAcceptAllOption: true,
+      });
       const writer = await handle.createWritable();
       await writer.write(dataBlob);
       await writer.close();
