@@ -171,8 +171,15 @@ export function runForceGraph(
     svgString2Image(svgString, 2 * width, 2 * height, "png", save);
 
     function save(dataBlob, filesize) {
-      saveAs(dataBlob, "D3 vis exported to PNG.png");
+      saveImg(dataBlob);
     }
+
+    const saveImg = async (dataBlob) => {
+      const handle = await window.showSaveFilePicker();
+      const writer = await handle.createWritable();
+      await writer.write(dataBlob);
+      await writer.close();
+    };
   });
 
   const addTooltip = (hoverTooltip, d, x, y) => {
