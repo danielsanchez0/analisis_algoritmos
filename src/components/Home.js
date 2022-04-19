@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import Loader from "react-loader-spinner";
 
 const Home = () => {
-  const history = useHistory()
+  const history = useHistory();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [grafoNombre, setGrafoNombre] = useState("");
@@ -12,25 +12,25 @@ const Home = () => {
   const loadFiles = (e) => {
     setFiles(e);
   };
-  
+
   const subirArchivo = () => {
     setLoading(true);
-    console.log(files)
-    const dataArchivo = new FormData()
-    dataArchivo.append("myfile",files)
+    console.log(files);
+    const dataArchivo = new FormData();
+    dataArchivo.append("myfile", files);
 
     fetch("http://127.0.0.1:8000/archivo", {
       method: "POST",
-      body: dataArchivo
+      body: dataArchivo,
     })
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
-        history.push('/grafo/'+result.grafoId)
+        history.push("/grafo/" + result.grafoId);
         setLoading(false);
       })
       .catch((err) => {
-        setLoading(false)
+        setLoading(false);
         console.log(err);
       });
   };
@@ -95,15 +95,16 @@ const Home = () => {
     <div className="home">
       <div className="row">
         <div className="col-md-8">
-            <input
-              type="file"
-              name="files"
-              onChange={(e) => setFiles(e.target.files[0])}
-            />
-            <br></br>
-            <button className="btn btn-primary" onClick={() => subirArchivo()}>
-              Insertar Archivo
-            </button>
+          <input
+            type="file"
+            accept="application/JSON"
+            name="files"
+            onChange={(e) => setFiles(e.target.files[0])}
+          />
+          <br></br>
+          <button className="btn btn-primary" onClick={() => subirArchivo()}>
+            Insertar Archivo
+          </button>
           <br></br>
           <br></br>
           <div className="form-group">
