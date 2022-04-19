@@ -16,7 +16,16 @@ const Control = () => {
   const [temporal, setTemporal] = useState("");
 
   const saveAs = async () => {
-    const handle = await window.showSaveFilePicker();
+    const handle = await window.showSaveFilePicker({
+      suggestedName: "grafo.json",
+      types: [
+        {
+          description: "JSON",
+          accept: { "doc/json": [".json"] },
+        },
+      ],
+      excludeAcceptAllOption: true,
+    });
     const writer = await handle.createWritable();
     await writer.write(JSON.stringify(temporal));
     await writer.close();
