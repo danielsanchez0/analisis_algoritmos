@@ -125,6 +125,9 @@ export function runForceGraph(
     return d.distance;
   };
 
+  const radius = (d) => {
+    return d.radius;
+  };
   const getClass = (d) => {
     return d.gender === "male" ? styles.male : styles.female;
   };
@@ -263,7 +266,9 @@ export function runForceGraph(
     .on("dblclick", (d) => {
       oe(d);
     })
-    .attr("r", 12)
+    .attr("r", (d) => {
+      return radius(d);
+    })
     .attr("fill", color)
     .call(drag(simulation));
 
