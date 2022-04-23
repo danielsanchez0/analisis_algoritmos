@@ -26,8 +26,8 @@ const Home = () => {
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
-        history.push("/grafo/" + result.grafoId);
         setLoading(false);
+        history.push("/grafo/" + result.grafoId);
       })
       .catch((err) => {
         setLoading(false);
@@ -45,6 +45,23 @@ const Home = () => {
         setLoading(false);
       });
   }, []);
+
+  const createGraphRandom = () => {
+    setLoading(true);
+    fetch("http://127.0.0.1:8000/randomgraph", {
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        history.push("/grafo/" + result.grafoId);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const createGraph = () => {
     setLoading(true);
@@ -95,9 +112,13 @@ const Home = () => {
     <div className="home">
       <div className="row">
         <div className="col-md-8">
+            <button className="btn btn-primary" onClick={() => createGraphRandom()}>
+              crear grafo random
+            </button>
+
           <input
             type="file"
-            accept="application/JSON"
+            accept="application/JSON,.xml"
             name="files"
             onChange={(e) => setFiles(e.target.files[0])}
           />

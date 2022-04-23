@@ -3,6 +3,7 @@ import { ForceGraph } from "./forceGraph";
 import Loader from "react-loader-spinner";
 import { Link, useParams, useHistory } from "react-router-dom";
 import * as fs from "file-saver";
+import fileDownload from 'js-file-download'
 
 const Control = () => {
   const [data, setData] = useState("");
@@ -123,9 +124,51 @@ const Control = () => {
         console.log(err);
       });
   };
+
+  const downloadXML = () => {
+    fetch("http://127.0.0.1:8000/xml/"+grafoid, {
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        
+
+
+      fetch(result.link, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/xml',
+        },
+      })
+      .then((response) => response.blob())
+      .then((blob) => {
+        const url = window.URL.createObjectURL(
+        new Blob([blob]),
+       );
+        const link = document.createElement('a');
+        link.href = url;
+
+        link.setAttribute(
+          'download',
+          `xml.xml`,
+        );
+
+        document.body.appendChild(link);
+        link.click();
+        link.parentNode.removeChild(link);
+  });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const nodeHoverTooltip = React.useCallback((node) => {
     return `<div>${node.name}</div>`;
   }, []);
+
   return loading ? (
     <Loader
       className="centrar"
@@ -137,6 +180,7 @@ const Control = () => {
   ) : (
     <div className="row">
       <div className="col-md-3">
+        <button className="btn btn-primary" onClick={() => downloadXML()}>Export XML</button>
         <button id="saveButton">Export my D3 visualization to PNG</button>
         <div className="form-group">
           <div className="card-body">
