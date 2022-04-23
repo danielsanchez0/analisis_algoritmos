@@ -9,12 +9,14 @@ const Control = () => {
   const [data, setData] = useState("");
   const [loading, setLoading] = useState(true);
   const [idNodo, setIdNodo] = useState("");
+  const [radius, setRadius] = useState(0);
   const [idTarget, setIdTarget] = useState("");
   const [idSource, setIdSource] = useState("");
   const [distance, setDistance] = useState("");
   const { grafoid } = useParams();
   const [bandera, setBander] = useState("");
   const [temporal, setTemporal] = useState("");
+  const [isShowing, setIsShowing] = useState(true);
 
   const saveAs = async () => {
     const handle = await window.showSaveFilePicker({
@@ -57,6 +59,7 @@ const Control = () => {
         tarea: "addNode",
         grafoId: parseInt(grafoid),
         id: parseInt(idNodo),
+        radius: parseInt(radius),
       }),
     })
       .then((res) => res.json())
@@ -173,84 +176,97 @@ const Control = () => {
     <div className="row">
       <div className="col-md-3">
         <div className="form-group">
-          <div className="card-body">
-            <label>idNodo:</label>
-            <input
-              className="form-control"
-              type="text"
-              placeholder="escribe el id del Nodo"
-              value={idNodo}
-              onChange={(e) => setIdNodo(e.target.value)}
-            />
+          <button
+            className="btn btn-primary"
+            onClick={() => setIsShowing(!isShowing)}
+          >
+            Mostrar
+          </button>
+          {isShowing ? (
+            <div className="card-body">
+              <h2>Agregar Nodo</h2>
+              <label>idNodo:</label>
+              <input
+                className="form-control"
+                type="text"
+                placeholder="escribe el id del Nodo"
+                value={idNodo}
+                onChange={(e) => setIdNodo(e.target.value)}
+              />
+              <label>Radio:</label>
+              <input
+                className="form-control"
+                type="text"
+                placeholder="escribe el radio del Nodo"
+                value={radius}
+                onChange={(e) => setRadius(e.target.value)}
+              />
 
-            <div className="card-footer">
-              <button className="btn btn-primary" onClick={() => addNode()}>
-                Agregar Nodo
-              </button>
+              <div className="card-footer">
+                <button className="btn btn-primary" onClick={() => addNode()}>
+                  Agregar Nodo
+                </button>
+              </div>
             </div>
-            {/* <div className="card-footer">
-              <button className="btn btn-primary" onClick={() => resetGraph()}>
-                Descartar cambios
-              </button>
-            </div> */}
-          </div>
+          ) : (
+            <div className="card-body">
+              <h2>Agregar Arista</h2>
+              <label>Nodo Origen: </label>
+              <select
+                onChange={(e) => {
+                  const selectGraph = parseInt(e.target.value);
+                  console.log("tengo ", selectGraph);
+                  setIdSource(selectGraph);
+                }}
+              >
+                <option selected disabled="true">
+                  Seleccione nodo
+                </option>
+                {data["nodes"].map((item) => {
+                  return (
+                    <option key={item.id} value={item.id}>
+                      {item.id}
+                    </option>
+                  );
+                })}
+              </select>
+              <br></br>
+              <label>Nodo Destino: </label>
+              <select
+                onChange={(e) => {
+                  const selectGraph = parseInt(e.target.value);
+                  console.log("tengo ", selectGraph);
+                  setIdTarget(selectGraph);
+                }}
+              >
+                <option selected disabled="true">
+                  Seleccione nodo
+                </option>
+                {data["nodes"].map((item) => {
+                  return (
+                    <option key={item.id} value={item.id}>
+                      {item.id}
+                    </option>
+                  );
+                })}
+              </select>
+              <br></br>
+              <label>Distancia:</label>
+              <input
+                className="form-control"
+                type="text"
+                placeholder="escribe la distancia entre nodos"
+                value={distance}
+                onChange={(e) => setDistance(e.target.value)}
+              />
 
-          <div className="card-body">
-            <label>Nodo Origen: </label>
-            <select
-              onChange={(e) => {
-                const selectGraph = parseInt(e.target.value);
-                console.log("tengo ", selectGraph);
-                setIdSource(selectGraph);
-              }}
-            >
-              <option selected disabled="true">
-                Seleccione nodo
-              </option>
-              {data["nodes"].map((item) => {
-                return (
-                  <option key={item.id} value={item.id}>
-                    {item.id}
-                  </option>
-                );
-              })}
-            </select>
-            <br></br>
-            <label>Nodo Destino: </label>
-            <select
-              onChange={(e) => {
-                const selectGraph = parseInt(e.target.value);
-                console.log("tengo ", selectGraph);
-                setIdTarget(selectGraph);
-              }}
-            >
-              <option selected disabled="true">
-                Seleccione nodo
-              </option>
-              {data["nodes"].map((item) => {
-                return (
-                  <option key={item.id} value={item.id}>
-                    {item.id}
-                  </option>
-                );
-              })}
-            </select>
-            <br></br>
-            <label>Distancia:</label>
-            <input
-              className="form-control"
-              type="text"
-              placeholder="escribe la distancia entre nodos"
-              value={distance}
-              onChange={(e) => setDistance(e.target.value)}
-            />
-
-            <div className="card-footer">
-              <button className="btn btn-primary" onClick={() => addLink()}>
-                Agregar Arista
-              </button>
+              <div className="card-footer">
+                <button className="btn btn-primary" onClick={() => addLink()}>
+                  Agregar Arista
+                </button>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
       <div className="col-md-9">
@@ -261,6 +277,7 @@ const Control = () => {
             nodeHoverTooltip={nodeHoverTooltip}
           />
         </section>
+
         <div className="card-footer">
           <button className="btn btn-primary" onClick={() => resetGraph()}>
             Descartar cambios
