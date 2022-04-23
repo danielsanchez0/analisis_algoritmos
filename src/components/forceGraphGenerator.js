@@ -72,7 +72,7 @@ function getSVGString(svgNode) {
   }
 }
 
-function svgString2Image(svgString, width, height, format, callback) {
+function svgString2Pdf(svgString, width, height, format, callback) {
   var format = format ? format : "png";
 
   var imgsrc =
@@ -101,23 +101,47 @@ function svgString2Image(svgString, width, height, format, callback) {
       method: "POST",
       body: dataArchivo,
     })
-      .then((res) => res.json())
+    .then((res) => res.json())
       .then((result) => {
-        console.log(result);
+      fetch(result.link, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/pdf',
+        },
+      })
+      .then((response) => response.blob())
+      .then((blob) => {
+        const url = window.URL.createObjectURL(
+        new Blob([blob]),
+       );
+        const link = document.createElement('a');
+        link.href = url;
+
+        link.setAttribute(
+          'download',
+          `pdf.pdf`,
+        );
+
+        document.body.appendChild(link);
+        link.click();
+        link.parentNode.removeChild(link);
+  });
       })
       .catch((err) => {
         console.log(err);
       });
 
-      console.log(blob)
-    });
+
+
+
+      });
   };
 
   image.src = imgsrc;
 }
 
 
-function svmage(svgString, width, height, format, callback) {
+function svgString2Image(svgString, width, height, format, callback) {
   var format = format ? format : "png";
 
   var imgsrc =
@@ -217,8 +241,11 @@ export function runForceGraph(
 
   const imagenBaseDatos = d3.select("#exportarpdf").on("click", function () {
     var svgString = getSVGString(svg.node());
+    svgString2Pdf(svgString, 2 * width, 2 * height, "png", save);
 
-
+    function save(dataBlob, filesize) {
+      console.log(typeof dataBlob)
+    }
   })
 
   const imagen = d3.select("#saveButton").on("click", function () {
