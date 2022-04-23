@@ -3,7 +3,7 @@ import { ForceGraph } from "./forceGraph";
 import Loader from "react-loader-spinner";
 import { Link, useParams, useHistory } from "react-router-dom";
 import * as fs from "file-saver";
-import fileDownload from 'js-file-download'
+import fileDownload from "js-file-download";
 
 const Control = () => {
   const [data, setData] = useState("");
@@ -126,39 +126,31 @@ const Control = () => {
   };
 
   const downloadXML = () => {
-    fetch("http://127.0.0.1:8000/xml/"+grafoid, {
+    fetch("http://127.0.0.1:8000/xml/" + grafoid, {
       headers: {
         "Content-Type": "application/json",
-      }
+      },
     })
       .then((res) => res.json())
       .then((result) => {
-        
+        fetch(result.link, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/xml",
+          },
+        })
+          .then((response) => response.blob())
+          .then((blob) => {
+            const url = window.URL.createObjectURL(new Blob([blob]));
+            const link = document.createElement("a");
+            link.href = url;
 
+            link.setAttribute("download", `xml.xml`);
 
-      fetch(result.link, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/xml',
-        },
-      })
-      .then((response) => response.blob())
-      .then((blob) => {
-        const url = window.URL.createObjectURL(
-        new Blob([blob]),
-       );
-        const link = document.createElement('a');
-        link.href = url;
-
-        link.setAttribute(
-          'download',
-          `xml.xml`,
-        );
-
-        document.body.appendChild(link);
-        link.click();
-        link.parentNode.removeChild(link);
-  });
+            document.body.appendChild(link);
+            link.click();
+            link.parentNode.removeChild(link);
+          });
       })
       .catch((err) => {
         console.log(err);
@@ -180,8 +172,6 @@ const Control = () => {
   ) : (
     <div className="row">
       <div className="col-md-3">
-        <button className="btn btn-primary" onClick={() => downloadXML()}>Export XML</button>
-        <button id="saveButton">Export my D3 visualization to PNG</button>
         <div className="form-group">
           <div className="card-body">
             <label>idNodo:</label>
@@ -206,22 +196,46 @@ const Control = () => {
           </div>
 
           <div className="card-body">
-            <label>idSource:</label>
-            <input
-              className="form-control"
-              type="text"
-              placeholder="escribe el id del Nodo Origen"
-              value={idSource}
-              onChange={(e) => setIdSource(e.target.value)}
-            />
-            <label>idDestino:</label>
-            <input
-              className="form-control"
-              type="text"
-              placeholder="escribe el id del Nodo Destino"
-              value={idTarget}
-              onChange={(e) => setIdTarget(e.target.value)}
-            />
+            <label>Nodo Origen: </label>
+            <select
+              onChange={(e) => {
+                const selectGraph = parseInt(e.target.value);
+                console.log("tengo ", selectGraph);
+                setIdSource(selectGraph);
+              }}
+            >
+              <option selected disabled="true">
+                Seleccione nodo
+              </option>
+              {data["nodes"].map((item) => {
+                return (
+                  <option key={item.id} value={item.id}>
+                    {item.id}
+                  </option>
+                );
+              })}
+            </select>
+            <br></br>
+            <label>Nodo Destino: </label>
+            <select
+              onChange={(e) => {
+                const selectGraph = parseInt(e.target.value);
+                console.log("tengo ", selectGraph);
+                setIdTarget(selectGraph);
+              }}
+            >
+              <option selected disabled="true">
+                Seleccione nodo
+              </option>
+              {data["nodes"].map((item) => {
+                return (
+                  <option key={item.id} value={item.id}>
+                    {item.id}
+                  </option>
+                );
+              })}
+            </select>
+            <br></br>
             <label>Distancia:</label>
             <input
               className="form-control"
@@ -253,6 +267,12 @@ const Control = () => {
           </button>
           <button className="btn btn-primary" onClick={() => saveAs()}>
             Guardar información
+          </button>
+          <button className="btn btn-primary" onClick={() => downloadXML()}>
+            Export XML
+          </button>
+          <button id="saveButton" className="btn btn-primary">
+            Export PNG
           </button>
         </div>
       </div>
