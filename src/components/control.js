@@ -17,7 +17,7 @@ const Control = () => {
   const [bandera, setBander] = useState("");
   const [temporal, setTemporal] = useState("");
   const [isShowing, setIsShowing] = useState(true);
-
+  const [changes, setChanges] = useState([]);
   const saveAs = async () => {
     const handle = await window.showSaveFilePicker({
       suggestedName: "grafo.json",
@@ -38,6 +38,7 @@ const Control = () => {
     fetch("http://127.0.0.1:8000/graph/" + grafoid, {})
       .then((res) => res.json())
       .then((result) => {
+        setChanges([...changes, result]);
         setBander(result);
         setTemporal(result);
         //console.log("obtuve ", { bandera });
@@ -65,6 +66,7 @@ const Control = () => {
       .then((res) => res.json())
       .then((result) => {
         setTemporal(result);
+        changes.push(result);
         //saveData(result);
         setData(result);
         setLoading(false);
@@ -92,6 +94,7 @@ const Control = () => {
     })
       .then((res) => res.json())
       .then((result) => {
+        changes.push(result);
         setTemporal(result);
         setData(result);
         setLoading(false);
@@ -102,7 +105,7 @@ const Control = () => {
   };
 
   const resetGraph = () => {
-    console.log("PUT");
+    console.log("Cambios ", changes);
     setLoading(true);
     fetch("http://127.0.0.1:8000/graph", {
       method: "PUT",
@@ -120,6 +123,38 @@ const Control = () => {
       .then((res) => res.json())
       .then((result) => {
         setTemporal(result);
+        setData(result);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const back = () => {
+    let index = 0;
+    if (changes.length === 1) {
+      index = changes.length-1;
+    }else{
+      index = changes.length -2;
+    }
+    console.log("vuelve ", changes[changes.length-1]["grafoId"]);
+    setLoading(true);
+    fetch("http://127.0.0.1:8000/graph", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        tarea: "back",
+        grafoId: changes[index]["grafoId"],
+        grafoName: changes[index]["grafoName"],
+        nodes: changes[index]["nodes"],
+        links: changes[index]["links"],
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
         setData(result);
         setLoading(false);
       })
@@ -281,6 +316,9 @@ const Control = () => {
         <div className="card-footer">
           <button className="btn btn-primary" onClick={() => resetGraph()}>
             Descartar cambios
+          </button>
+          <button className="btn btn-primary" onClick={() => back()}>
+            Descartar último
           </button>
           <button className="btn btn-primary" onClick={() => saveAs()}>
             Guardar información
