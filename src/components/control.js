@@ -34,6 +34,22 @@ const Control = () => {
     await writer.close();
   };
 
+  const saveAsXML = async (dataBlod) => {
+    const handle = await window.showSaveFilePicker({
+      suggestedName: "grafo.xml",
+      types: [
+        {
+          description: "XML",
+          accept: { "doc/xml": [".xml"] },
+        },
+      ],
+      excludeAcceptAllOption: true,
+    });
+    const writer = await handle.createWritable();
+    await writer.write(dataBlod);
+    await writer.close();
+  };
+
   useEffect(() => {
     fetch("http://127.0.0.1:8000/graph/" + grafoid, {})
       .then((res) => res.json())
@@ -41,8 +57,6 @@ const Control = () => {
         setChanges([...changes, result]);
         setBander(result);
         setTemporal(result);
-        //console.log("obtuve ", { bandera });
-        //console.log("Llegó ", result["grafoId"]);
         setData(result);
         setLoading(false);
       });
@@ -179,15 +193,7 @@ const Control = () => {
         })
           .then((response) => response.blob())
           .then((blob) => {
-            const url = window.URL.createObjectURL(new Blob([blob]));
-            const link = document.createElement("a");
-            link.href = url;
-
-            link.setAttribute("download", `xml.xml`);
-
-            document.body.appendChild(link);
-            link.click();
-            link.parentNode.removeChild(link);
+            saveAsXML(blob);
           });
       })
       .catch((err) => {
