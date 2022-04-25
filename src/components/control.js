@@ -210,9 +210,6 @@ const Control = () => {
   ) : (
     <div className="row">
       <div className="col-md-3">
-        <button className="btn btn-primary" onClick={() => downloadXML()}>Export XML</button>
-        <button id="saveButton">Export my D3 visualization to PNG</button>
-        <button id="exportarpdf"> exportar como pdf</button>
         <div className="form-group">
           <button
             className="btn btn-primary"
@@ -332,6 +329,7 @@ const Control = () => {
           <button id="saveButton" className="btn btn-primary">
             Export PNG
           </button>
+          <button id="exportarpdf"> exportar como pdf</button>
         </div>
       </div>
     </div>
