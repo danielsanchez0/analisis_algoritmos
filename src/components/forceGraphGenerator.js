@@ -72,6 +72,22 @@ function getSVGString(svgNode) {
   }
 }
 
+const savePDF = async (dataBlob) => {
+  const handle = await window.showSaveFilePicker({
+    suggestedName: "grafo.pdf",
+    types: [
+      {
+        description: "PDF",
+        accept: { "image/pdf": [".pdf"] },
+      },
+    ],
+    excludeAcceptAllOption: true,
+  });
+  const writer = await handle.createWritable();
+  await writer.write(dataBlob);
+  await writer.close();
+};
+
 function svgString2Pdf(svgString, width, height, format, callback) {
   var format = format ? format : "png";
 
@@ -111,29 +127,12 @@ function svgString2Pdf(svgString, width, height, format, callback) {
       })
       .then((response) => response.blob())
       .then((blob) => {
-        const url = window.URL.createObjectURL(
-        new Blob([blob]),
-       );
-        const link = document.createElement('a');
-        link.href = url;
-
-        link.setAttribute(
-          'download',
-          `pdf.pdf`,
-        );
-
-        document.body.appendChild(link);
-        link.click();
-        link.parentNode.removeChild(link);
+        savePDF(blob);
   });
       })
       .catch((err) => {
         console.log(err);
       });
-
-
-
-
       });
   };
 
@@ -241,10 +240,10 @@ export function runForceGraph(
 
   const imagenBaseDatos = d3.select("#exportarpdf").on("click", function () {
     var svgString = getSVGString(svg.node());
-    svgString2Pdf(svgString, 2 * width, 2 * height, "png", save);
+    svgString2Pdf(svgString, 2 * width, 2 * height, "png", save2);
 
-    function save(dataBlob, filesize) {
-      console.log(typeof dataBlob)
+    function save2(dataBlob, filesize) {
+      console.log("xd");
     }
   })
 
