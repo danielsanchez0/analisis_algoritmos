@@ -335,7 +335,8 @@ const Control = () => {
           <button id="saveButton" className="btn btn-primary">
             Export PNG
           </button>
-          <button id="exportarpdf"> exportar como pdf</button>
+          <button id="exportarpdf"> exportar PDF</button>
+          <button id="exportXLSX"> exportar EXCEL</button>
         </div>
       </div>
     </div>

@@ -72,6 +72,22 @@ function getSVGString(svgNode) {
   }
 }
 
+const saveXLSX = async (dataBlob) => {
+  const handle = await window.showSaveFilePicker({
+    suggestedName: "grafo.xlsx",
+    types: [
+      {
+        description: "XLSX",
+        accept: { "image/xlsx": [".xlsx"] },
+      },
+    ],
+    excludeAcceptAllOption: true,
+  });
+  const writer = await handle.createWritable();
+  await writer.write(dataBlob);
+  await writer.close();
+};
+
 const savePDF = async (dataBlob) => {
   const handle = await window.showSaveFilePicker({
     suggestedName: "grafo.pdf",
@@ -167,6 +183,57 @@ function svgString2Image(svgString, width, height, format, callback) {
   image.src = imgsrc;
 }
 
+function svgString2XLSX(svgString, width, height, format, callback) {
+  var format = format ? format : "png";
+
+  var imgsrc =
+    "data:image/svg+xml;base64," +
+    btoa(unescape(encodeURIComponent(svgString))); // Convert SVG string to data URL
+
+  var canvas = document.createElement("canvas");
+  var context = canvas.getContext("2d");
+
+  canvas.width = width;
+  canvas.height = height;
+
+  var image = new Image();
+  image.onload = function () {
+    context.clearRect(0, 0, width, height);
+    context.drawImage(image, 0, 0, width, height);
+
+    canvas.toBlob(function (blob) {
+      var filesize = Math.round(blob.length / 1024) + " KB";
+      //if (callback) callback(blob, filesize);
+
+      const dataArchivo = new FormData();
+      dataArchivo.append("myfile", blob);
+
+    fetch("http://127.0.0.1:8000/imagexc", {
+      method: "POST",
+      body: dataArchivo,
+    })
+    .then((res) => res.json())
+      .then((result) => {
+      fetch(result.link, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/xlsx',
+        },
+      })
+      .then((response) => response.blob())
+      .then((blob) => {
+        saveXLSX(blob);
+  });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      });
+  };
+
+  image.src = imgsrc;
+}
+
 
 export function runForceGraph(
   container,
@@ -241,6 +308,15 @@ export function runForceGraph(
   const imagenBaseDatos = d3.select("#exportarpdf").on("click", function () {
     var svgString = getSVGString(svg.node());
     svgString2Pdf(svgString, 2 * width, 2 * height, "png", save2);
+
+    function save2(dataBlob, filesize) {
+      console.log("xd");
+    }
+  })
+
+  const imagenXLSX = d3.select("#exportXLSX").on("click", function () {
+    var svgString = getSVGString(svg.node());
+    svgString2XLSX(svgString, 2 * width, 2 * height, "png", save2);
 
     function save2(dataBlob, filesize) {
       console.log("xd");
