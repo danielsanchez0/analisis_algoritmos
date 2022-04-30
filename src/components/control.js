@@ -26,6 +26,7 @@ const Control = () => {
   const [isActive2, setIsActive2] = useState(false);
   const [selected, setSelected] = useState("Seleccione nodo");
   const [selected2, setSelected2] = useState("Seleccione nodo");
+  const [agregar, setAgregar] = useState("Agregar Arista");
 
   const saveAs = async () => {
     const handle = await window.showSaveFilePicker({
@@ -231,9 +232,15 @@ const Control = () => {
         <div className="form-group">
           <button
             className="btn btn-primary"
-            onClick={() => setIsShowing(!isShowing)}
+            onClick={() => {
+              if (isShowing) {
+                setAgregar("Agregar Nodo");
+              } else {
+                setAgregar("Agregar Arista");
+              }
+              setIsShowing(!isShowing); }}
           >
-            Mostrar
+            {agregar}
           </button>
           {isShowing ? (
             <div className="card-body">
@@ -244,7 +251,8 @@ const Control = () => {
                 type="text"
                 placeholder="escribe el id del Nodo"
                 value={idNodo}
-                onChange={(e) => setIdNodo(e.target.value)}
+                onChange={(e) => {setIdNodo(e.target.value);
+              }}
               />
               <label>Radio:</label>
               <input
