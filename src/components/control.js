@@ -4,6 +4,10 @@ import Loader from "react-loader-spinner";
 import { Link, useParams, useHistory } from "react-router-dom";
 import * as fs from "file-saver";
 import fileDownload from "js-file-download";
+import { FontAwesomeIcon }   from "@fortawesome/react-fontawesome";
+import {} from '@fortawesome/free-brands-svg-icons'
+import "./control.css";
+
 
 const Control = () => {
   const [data, setData] = useState("");
@@ -18,6 +22,11 @@ const Control = () => {
   const [temporal, setTemporal] = useState("");
   const [isShowing, setIsShowing] = useState(true);
   const [changes, setChanges] = useState([]);
+  const [isActive, setIsActive] = useState(false);
+  const [isActive2, setIsActive2] = useState(false);
+  const [selected, setSelected] = useState("Seleccione nodo");
+  const [selected2, setSelected2] = useState("Seleccione nodo");
+
   const saveAs = async () => {
     const handle = await window.showSaveFilePicker({
       suggestedName: "grafo.json",
@@ -112,6 +121,8 @@ const Control = () => {
         setTemporal(result);
         setData(result);
         setLoading(false);
+        setSelected("Seleccione nodo");
+        setSelected2("Seleccione nodo")
       })
       .catch((err) => {
         console.log(err);
@@ -214,6 +225,7 @@ const Control = () => {
       width={100}
     />
   ) : (
+    
     <div className="row">
       <div className="col-md-3">
         <div className="form-group">
@@ -253,44 +265,54 @@ const Control = () => {
             <div className="card-body">
               <h2>Agregar Arista</h2>
               <label>Nodo Origen: </label>
-              <select
-                onChange={(e) => {
-                  const selectGraph = parseInt(e.target.value);
-                  console.log("tengo ", selectGraph);
-                  setIdSource(selectGraph);
-                }}
-              >
-                <option selected disabled="true">
-                  Seleccione nodo
-                </option>
-                {data["nodes"].map((item) => {
-                  return (
-                    <option key={item.id} value={item.id}>
-                      {item.id}
-                    </option>
-                  );
-                })}
-              </select>
+              <div className="dropdown">
+      <div className="dropdown-btn" onClick={(e) => {setIsActive(!isActive); setIsActive2(false);}}>
+        {selected}
+        <span className="fas fa-caret-down"></span>
+      </div>
+      {isActive && (
+        <div className="dropdown-content">
+          {data["nodes"].map((option) => (
+            <div
+              onClick={(e) => {
+                setSelected(option.id);
+                setIdSource(option.id)
+                setIsActive(false);
+              }}
+              className="dropdown-item"
+            >
+              {option.id}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
               <br></br>
               <label>Nodo Destino: </label>
-              <select
-                onChange={(e) => {
-                  const selectGraph = parseInt(e.target.value);
-                  console.log("tengo ", selectGraph);
-                  setIdTarget(selectGraph);
-                }}
-              >
-                <option selected disabled="true">
-                  Seleccione nodo
-                </option>
-                {data["nodes"].map((item) => {
-                  return (
-                    <option key={item.id} value={item.id}>
-                      {item.id}
-                    </option>
-                  );
-                })}
-              </select>
+              <div className="chosen-wrapper">
+              <div className="dropdown">
+      <div className="dropdown-btn" onClick={(e) => {setIsActive2(!isActive2); setIsActive(false);}}>
+        {selected2}
+        <span className="fas fa-caret-down"></span>
+      </div>
+      {isActive2 && (
+        <div className="dropdown-content">
+          {data["nodes"].map((option) => (
+            <div
+              onClick={(e) => {
+                setSelected2(option.id);
+                setIdTarget(option.id)
+                setIsActive2(false);
+              }}
+              className="dropdown-item"
+            >
+              {option.id}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+              </div>
               <br></br>
               <label>Distancia:</label>
               <input
