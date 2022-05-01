@@ -143,6 +143,7 @@ function svgString2Pdf(svgString, width, height, format, callback) {
       })
       .then((response) => response.blob())
       .then((blob) => {
+        console.log("pdf ", blob);
         savePDF(blob);
   });
       })
@@ -305,7 +306,7 @@ export function runForceGraph(
   }
   const div = d3.select("#graph-tooltip");
 
-  const imagenBaseDatos = d3.select("#exportarpdf").on("click", function () {
+  const imagenBaseDatos = d3.select("#PDF").on("click", function () {
     var svgString = getSVGString(svg.node());
     svgString2Pdf(svgString, 2 * width, 2 * height, "png", save2);
 
@@ -314,7 +315,7 @@ export function runForceGraph(
     }
   })
 
-  const imagenXLSX = d3.select("#exportXLSX").on("click", function () {
+  const imagenXLSX = d3.select("#XLSX").on("click", function () {
     var svgString = getSVGString(svg.node());
     svgString2XLSX(svgString, 2 * width, 2 * height, "png", save2);
 
