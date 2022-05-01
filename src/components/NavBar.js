@@ -19,15 +19,6 @@ const NavBar = ()=>{
         				<Link className="nav-link" to="/home">Home</Link>
       				</li>
 					  <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Archivo
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" id='XML'>Export XML</a>
-          <a class="dropdown-item" id='JSON'>Exportar JSON</a>
-          <a class="dropdown-item" id='PDF'>Export to PDF</a>
-		  <a class="dropdown-item" id='XLSX'>Export to Excel</a>
-        </div>
       </li>
     			</ul>
 				

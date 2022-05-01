@@ -324,7 +324,7 @@ export function runForceGraph(
     }
   })
 
-  const imagen = d3.select("#saveButton").on("click", function () {
+  const imagen = d3.select("#PNG").on("click", function () {
     var svgString = getSVGString(svg.node());
     svgString2Image(svgString, 2 * width, 2 * height, "png", save);
 

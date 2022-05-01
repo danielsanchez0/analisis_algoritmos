@@ -27,6 +27,7 @@ const Control = () => {
   const [selected, setSelected] = useState("Seleccione nodo");
   const [selected2, setSelected2] = useState("Seleccione nodo");
   const [agregar, setAgregar] = useState("Agregar Arista");
+  const [cont, setCont] = useState(0);
 
   const saveAs = async () => {
     const handle = await window.showSaveFilePicker({
@@ -228,8 +229,36 @@ const Control = () => {
   ) : (
     
     <div className="row">
+      <div className="col-md-12">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+  			<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    			<span className="navbar-toggler-icon"></span>
+  			</button>
+  			<div className="collapse navbar-collapse" id="navbarText">
+    			<ul className="navbar-nav mr-auto">
+					  <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Archivo
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" id='XML' onClick={downloadXML}>Export XML</a>
+          <a class="dropdown-item" id='JSON' onClick={saveAs}>Exportar JSON</a>
+          <a class="dropdown-item" id='PDF'>Export PDF</a>
+		      <a class="dropdown-item" id='XLSX'>Export Excel</a>
+          <a class="dropdown-item" id='PNG'>Export PNG</a>
+        </div>
+      </li>
+    			</ul>
+				
+    			<span className="navbar-text">
+      				
+    			</span>
+  			</div>
+		</nav>
+      </div>
       <div className="col-md-3">
         <div className="form-group">
+          <br />
           <button
             className="btn btn-primary"
             onClick={() => {
@@ -356,17 +385,17 @@ const Control = () => {
           <button className="btn btn-primary" onClick={() => back()}>
             Descartar último
           </button>
-          <button className="btn btn-primary" onClick={() => saveAs()}>
+          {/* <button className="btn btn-primary" onClick={() => saveAs()}>
             Guardar información
           </button>
           <button className="btn btn-primary" onClick={() => downloadXML()}>
             Export XML
-          </button>
+          </button> */}
           <button id="saveButton" className="btn btn-primary">
             Export PNG
           </button>
-          <button id="exportarpdf"> exportar PDF</button>
-          <button id="exportXLSX"> exportar EXCEL</button>
+          {/* <button id="exportarpdf"> exportar PDF</button>
+          <button id="exportXLSX"> exportar EXCEL</button> */}
         </div>
       </div>
     </div>
