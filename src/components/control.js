@@ -391,9 +391,9 @@ const Control = () => {
           <button className="btn btn-primary" onClick={() => downloadXML()}>
             Export XML
           </button> */}
-          <button id="saveButton" className="btn btn-primary">
+          {/* <button id="saveButton" className="btn btn-primary">
             Export PNG
-          </button>
+          </button> */}
           {/* <button id="exportarpdf"> exportar PDF</button>
           <button id="exportXLSX"> exportar EXCEL</button> */}
         </div>
