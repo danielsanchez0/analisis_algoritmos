@@ -10,6 +10,7 @@ import "./control.css";
 
 
 const Control = () => {
+  const [show, setShow] = useState(0);
   const [data, setData] = useState("");
   const [loading, setLoading] = useState(true);
   const [idNodo, setIdNodo] = useState("");
@@ -248,6 +249,18 @@ const Control = () => {
           <a class="dropdown-item" id='PNG'>Export PNG</a>
         </div>
       </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Editar
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" id='AddN' onClick={()=>{setShow(0);}}>Agregar...</a>
+          <a class="dropdown-item" id='edN' onClick={()=>{setShow(1);}}>Editar Nodo</a>
+          <a class="dropdown-item" id='delN' onClick={()=>{setShow(2);}}>Eliminar Nodo</a>
+        </div>
+      </li>
+      
+      
     			</ul>
 				
     			<span className="navbar-text">
@@ -257,6 +270,7 @@ const Control = () => {
 		</nav>
       </div>
       <div className="col-md-3">
+      {show === 1?
         <div className="form-group">
           <br />
           <button
@@ -273,6 +287,7 @@ const Control = () => {
           </button>
           {isShowing ? (
             <div className="card-body">
+              
               <h2>Agregar Nodo</h2>
               <label>idNodo:</label>
               <input
@@ -368,6 +383,8 @@ const Control = () => {
             </div>
           )}
         </div>
+        : <h1>d</h1>
+        }
       </div>
       <div className="col-md-9">
         <section className="Main">
