@@ -34,6 +34,9 @@ const Control = () => {
   const [targetD, setTargetD] = useState("");
   const [distanceD, setDistanceD] = useState("");
   const [nodoD, setNodoD] = useState("");
+  const [sourceE, setSourceE] = useState("");
+  const [targetE, setTargetE] = useState("");
+  const [nodoE, setNodoE] = useState("");
 
   const saveAs = async () => {
     const handle = await window.showSaveFilePicker({
@@ -154,6 +157,7 @@ const Control = () => {
     })
       .then((res) => res.json())
       .then((result) => {
+        changes.push(result);
         setTemporal(result);
         setData(result);
         setLoading(false);
@@ -162,6 +166,60 @@ const Control = () => {
         console.log(err);
       });
   };
+
+
+  const deleteLink = () => {
+    //console.log("Cambios ", changes);
+    setLoading(true);
+    fetch("http://127.0.0.1:8000/graph", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        tarea: "removeLink",
+        grafoId: parseInt(grafoid),
+        source: parseInt(sourceE),
+        target: parseInt(targetE),
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        changes.push(result);
+        setTemporal(result);
+        setData(result);
+        setLoading(false);})
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const deleteNode = () => {
+    //console.log("Cambios ", changes);
+    setLoading(true);
+    fetch("http://127.0.0.1:8000/graph", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        tarea: "removeNode",
+        grafoId: parseInt(grafoid),
+        id: parseInt(nodoE),
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        changes.push(result);
+        setTemporal(result);
+        setData(result);
+        setLoading(false);})
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+
 
   const updateLink = () => {
     //console.log("Cambios ", changes);
@@ -181,6 +239,7 @@ const Control = () => {
     })
       .then((res) => res.json())
       .then((result) => {
+        changes.push(result);
         setTemporal(result);
         setData(result);
         setLoading(false);
@@ -570,56 +629,97 @@ const Control = () => {
 
 
       :
-      <div className="card-body">
-          <br />
-          <button
-            className="btn btn-primary"
-            onClick={() => {
-              setIsShowing(true); }}
-          >
-            xdd  Nodo
-          </button>
-            <h2>Editar Nodo</h2>
-            <label>Arista: </label>
-            <div className="dropdown">
-          <div className="dropdown-btn" onClick={(e) => {setIsActive(!isActive); setIsActive2(false);}}>
-            {selected}
-            <span className="fas fa-caret-down"></span>
-          </div>
-          {isActive && (
-            <div className="dropdown-content">
-              {data["links"].map((option) => (
-                <div
-                  onClick={(e) => {
-                    setSelected(`N${option.source} - N${option.target}`);
-                    setIdSource(option.source)
-                    setDistance(option.distance)
-                    setIsActive(false);
-                  }}
-                  className="dropdown-item"
-                >
-                  N{option.source} - N{option.target}
-                </div>
-              ))}
+      // Eliminar
+      <div>
+        {isShowing? (<div className="card-body">
+            <br />
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                setIsShowing(false); 
+                setSelected("Seleccionar Nodo")}}
+            >
+              Eliminar  Nodo
+            </button>
+              <h2>Eliminar Arista</h2>
+              <label>Arista: </label>
+              <div className="dropdown">
+            <div className="dropdown-btn" onClick={(e) => {setIsActive(!isActive); setIsActive2(false);}}>
+              {selected}
+              <span className="fas fa-caret-down"></span>
             </div>
-          )}
+            {isActive && (
+              <div className="dropdown-content">
+                {data["links"].map((option) => (
+                  <div
+                    onClick={(e) => {
+                      setSelected(`N${option.source} - N${option.target}`);
+                      setSourceE(option.source);
+                      setTargetE(option.target);
+                      setIsActive(false);
+                    }}
+                    className="dropdown-item"
+                  >
+                    N{option.source} - N{option.target}
+                  </div>
+                ))}
+              </div>
+            )}
+            </div>
+          <br></br>
+          
+          <div className="card-footer">
+            <button className="btn btn-primary" onClick={() => {deleteLink();setSelected("Seleccionar Arista");}}>
+              Eliminar Arista
+            </button>
           </div>
-        <br></br>
-        <label>Distancia:</label>
-        <input
-          className="form-control"
-          type="text"
-          placeholder="escribe la distancia entre nodos"
-          value={distance}
-          onChange={(e) => setDistance(e.target.value)}
-        />
-
-        <div className="card-footer">
-          <button className="btn btn-primary" onClick={() => addLink()}>
-            Agregar xx
-          </button>
+        </div>):
+        
+        (<div className="card-body">
+        <br />
+        <button
+          className="btn btn-primary"
+          onClick={() => {
+            setIsShowing(true); 
+            setSelected("Seleccionar Arista")}}
+        >
+          Eliminar  Nodo
+        </button>
+          <h2>Eliminar Nodo</h2>
+          <label>Nodo: </label>
+          <div className="dropdown">
+        <div className="dropdown-btn" onClick={(e) => {setIsActive(!isActive); setIsActive2(false);}}>
+          {selected}
+          <span className="fas fa-caret-down"></span>
         </div>
+        {isActive && (
+          <div className="dropdown-content">
+            {data["nodes"].map((option) => (
+              <div
+                onClick={(e) => {
+                  setSelected(`N${option.id}`);
+                  setNodoE(option.id);
+                  setIsActive(false);
+                }}
+                className="dropdown-item"
+              >
+                N{option.id}
+              </div>
+            ))}
+          </div>
+        )}
+        </div>
+      <br></br>
+      
+      <div className="card-footer">
+        <button className="btn btn-primary" onClick={() => {deleteNode();setSelected("Seleccionar Nodo");}}>
+          Eliminar Nodo
+        </button>
       </div>
+    </div>)
+        
+}
+      </div>   
         }
       </div>
       <div className="col-md-9">
