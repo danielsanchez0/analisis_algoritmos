@@ -254,9 +254,9 @@ const Control = () => {
             Editar
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" id='AddN' onClick={()=>{setShow(0);}}>Agregar...</a>
-          <a class="dropdown-item" id='edN' onClick={()=>{setShow(1);}}>Editar Nodo</a>
-          <a class="dropdown-item" id='delN' onClick={()=>{setShow(2);}}>Eliminar Nodo</a>
+          <a class="dropdown-item" id='AddN' onClick={()=>{setShow(0);isShowing(true)}}>Agregar...</a>
+          <a class="dropdown-item" id='edN' onClick={()=>{setShow(1); setAgregar("Editar Nodo"); isShowing(true);}}>Editar Nodo</a>
+          <a class="dropdown-item" id='delN' onClick={()=>{setShow(2);isShowing(true)}}>Eliminar Nodo</a>
         </div>
       </li>
       
@@ -270,24 +270,21 @@ const Control = () => {
 		</nav>
       </div>
       <div className="col-md-3">
-      {show === 1?
+      
+      {show === 0?
+        
         <div className="form-group">
-          <br />
+          {isShowing ? (
+            <div className="card-body">
+              <br />
           <button
             className="btn btn-primary"
             onClick={() => {
-              if (isShowing) {
-                setAgregar("Agregar Nodo");
-              } else {
                 setAgregar("Agregar Arista");
-              }
-              setIsShowing(!isShowing); }}
+              setIsShowing(false); }}
           >
-            {agregar}
+            Agregar Arista
           </button>
-          {isShowing ? (
-            <div className="card-body">
-              
               <h2>Agregar Nodo</h2>
               <label>idNodo:</label>
               <input
@@ -315,6 +312,15 @@ const Control = () => {
             </div>
           ) : (
             <div className="card-body">
+              <br />
+          <button
+            className="btn btn-primary"
+            onClick={() => {
+                setAgregar("Agregar Nodo");
+              setIsShowing(true); }}
+          >
+            Agregar Nodo
+          </button>
               <h2>Agregar Arista</h2>
               <label>Nodo Origen: </label>
               <div className="dropdown">
@@ -376,14 +382,70 @@ const Control = () => {
               />
 
               <div className="card-footer">
-                <button className="btn btn-primary" onClick={() => addLink()}>
+                <button className="btn btn-primary" onClick={() => {addLink();
+                setDistance("0")}}>
                   Agregar Arista
                 </button>
               </div>
             </div>
           )}
         </div>
-        : <h1>d</h1>
+
+        : <div className="card-body">
+          <br />
+          <button
+            className="btn btn-primary"
+            onClick={() => {
+              if (isShowing) {
+                setAgregar("Editar Nodo");
+              } else {
+                setAgregar("Editar Arista");
+              }
+              setIsShowing(!isShowing); }}
+          >
+            {agregar}
+          </button>
+            <h2>Editar Arista</h2>
+            <label>Arista: </label>
+            <div className="dropdown">
+          <div className="dropdown-btn" onClick={(e) => {setIsActive(!isActive); setIsActive2(false);}}>
+            {selected}
+            <span className="fas fa-caret-down"></span>
+          </div>
+          {isActive && (
+            <div className="dropdown-content">
+              {data["links"].map((option) => (
+                <div
+                  onClick={(e) => {
+                    setSelected(`N${option.source} - N${option.target}`);
+                    setIdSource(option.source)
+                    setDistance(option.distance)
+                    setIsActive(false);
+                  }}
+                  className="dropdown-item"
+                >
+                  N{option.source} - N{option.target}
+                </div>
+              ))}
+            </div>
+          )}
+          </div>
+        <br></br>
+        <label>Distancia:</label>
+        <input
+          className="form-control"
+          type="text"
+          placeholder="escribe la distancia entre nodos"
+          value={distance}
+          onChange={(e) => setDistance(e.target.value)}
+        />
+
+        <div className="card-footer">
+          <button className="btn btn-primary" onClick={() => addLink()}>
+            Agregar Arista
+          </button>
+        </div>
+      </div>
         }
       </div>
       <div className="col-md-9">
