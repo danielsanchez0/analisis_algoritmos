@@ -313,7 +313,7 @@ const Control = () => {
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" id='AddN' onClick={()=>{setShow(1);isShowing(true)}}>Agregar...</a>
-          <a class="dropdown-item" id='edN' onClick={()=>{setShow(2); isShowing(true);}}>Editar Nodo</a>
+          <a class="dropdown-item" id='edN' onClick={()=>{setShow(2); isShowing(true);}}>Editar...</a>
           {/* <a class="dropdown-item" id='delN' onClick={()=>{setShow(2);isShowing(true)}}>Eliminar Nodo</a> */}
         </div>
       </li>
@@ -338,7 +338,9 @@ const Control = () => {
           <button
             className="btn btn-primary"
             onClick={() => {
-              setIsShowing(false); }}
+              setIsShowing(false); 
+            setIdNodo("");
+          setRadius("");}}
           >
             Agregar Arista
           </button>
@@ -346,7 +348,7 @@ const Control = () => {
               <label>idNodo:</label>
               <input
                 className="form-control"
-                type="text"
+                type="number"
                 placeholder="escribe el id del Nodo"
                 value={idNodo}
                 onChange={(e) => {setIdNodo(e.target.value);
@@ -355,14 +357,16 @@ const Control = () => {
               <label>Radio:</label>
               <input
                 className="form-control"
-                type="text"
+                type="number"
                 placeholder="escribe el radio del Nodo"
                 value={radius}
                 onChange={(e) => setRadius(e.target.value)}
               />
 
               <div className="card-footer">
-                <button className="btn btn-primary" onClick={() => addNode()}>
+                <button className="btn btn-primary" onClick={() => {addNode()
+                setRadius("");
+                setIdNodo("");}}>
                   Agregar Nodo
                 </button>
               </div>
@@ -373,7 +377,10 @@ const Control = () => {
           <button
             className="btn btn-primary"
             onClick={() => {
-              setIsShowing(true); }}
+              setIsShowing(true);
+              selected("Seleccione Nodo");
+              selected2("Seleccione Nodo"); 
+            setDistance("");}}
           >
             Agregar Nodo
           </button>
@@ -439,7 +446,9 @@ const Control = () => {
 
               <div className="card-footer">
                 <button className="btn btn-primary" onClick={() => {addLink();
-                setDistance("0")}}>
+                setDistance("0");
+                selected("Seleccione Nodo");
+                selected2("Seleccione Nodo");}}>
                   Agregar Arista
                 </button>
               </div>
@@ -506,7 +515,8 @@ const Control = () => {
             className="btn btn-primary"
             onClick={() => {
               setIsShowing(true); 
-              setSelected("Seleccione Arista")}}
+              setSelected("Seleccione Arista");
+            setRadiusD("");}}
           >
             Editar Arista
           </button>
@@ -567,7 +577,7 @@ const Control = () => {
             onClick={() => {
               setIsShowing(true); }}
           >
-            Editar  Nodo
+            xdd  Nodo
           </button>
             <h2>Editar Nodo</h2>
             <label>Arista: </label>
@@ -606,7 +616,7 @@ const Control = () => {
 
         <div className="card-footer">
           <button className="btn btn-primary" onClick={() => addLink()}>
-            Agregar Arista
+            Agregar xx
           </button>
         </div>
       </div>
