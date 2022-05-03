@@ -32,6 +32,7 @@ const Control = () => {
   const [radiusD, setRadiusD] = useState("");
   const [sourceD, setSourceD] = useState("");
   const [targetD, setTargetD] = useState("");
+  const [distanceD, setDistanceD] = useState("");
   const [nodoD, setNodoD] = useState("");
 
   const saveAs = async () => {
@@ -157,6 +158,33 @@ const Control = () => {
         setData(result);
         setLoading(false);
         setRadius("");      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const updateLink = () => {
+    //console.log("Cambios ", changes);
+    setLoading(true);
+    fetch("http://127.0.0.1:8000/graph", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        tarea: "updateLink",
+        grafoId: parseInt(grafoid),
+        source: parseInt(sourceD),
+        target: parseInt(targetD),
+        distance: parseInt(distanceD)
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        setTemporal(result);
+        setData(result);
+        setLoading(false);
+        setRadius("");})
       .catch((err) => {
         console.log(err);
       });
@@ -426,7 +454,8 @@ const Control = () => {
             className="btn btn-primary"
             onClick={() => {
               setIsShowing(false); 
-              setRadiusD("");}}
+              setRadiusD("");
+              setSelected("Seleccione Nodo")}}
           >
             Editar Nodo
           </button>
@@ -443,8 +472,9 @@ const Control = () => {
                 <div
                   onClick={(e) => {
                     setSelected(`N${option.source} - N${option.target}`);
-                    setIdSource(option.source)
-                    setDistance(option.distance)
+                    setSourceD(option.source)
+                    setTargetD(option.target)
+                    setDistanceD(option.distance)
                     setIsActive(false);
                   }}
                   className="dropdown-item"
@@ -459,21 +489,24 @@ const Control = () => {
         <label>Distancia:</label>
         <input
           className="form-control"
-          type="text"
+          type="number"
           placeholder="escribe la distancia entre nodos"
-          value={distance}
-          onChange={(e) => setDistance(e.target.value)}
+          value={distanceD}
+          onChange={(e) => setDistanceD(e.target.value)}
         />
 
         <div className="card-footer">
-          <button className="btn btn-primary" onClick={() => console.log("")}>
-            Agregar Arista
+          <button className="btn btn-primary" onClick={() => {updateLink();
+          setSelected("Seleccione Arista");
+          setDistanceD("");}}>
+            Actualizar Arista
           </button>
         </div></div>):(<div className="card-body"> <br />
           <button
             className="btn btn-primary"
             onClick={() => {
-              setIsShowing(true); }}
+              setIsShowing(true); 
+              setSelected("Seleccione Arista")}}
           >
             Editar Arista
           </button>
@@ -595,17 +628,6 @@ const Control = () => {
           <button className="btn btn-primary" onClick={() => back()}>
             Descartar último
           </button>
-          {/* <button className="btn btn-primary" onClick={() => saveAs()}>
-            Guardar información
-          </button>
-          <button className="btn btn-primary" onClick={() => downloadXML()}>
-            Export XML
-          </button> */}
-          {/* <button id="saveButton" className="btn btn-primary">
-            Export PNG
-          </button> */}
-          {/* <button id="exportarpdf"> exportar PDF</button>
-          <button id="exportXLSX"> exportar EXCEL</button> */}
         </div>
       </div>
     </div>
