@@ -29,6 +29,10 @@ const Control = () => {
   const [selected2, setSelected2] = useState("Seleccione nodo");
   const [agregar, setAgregar] = useState("Agregar Arista");
   const [cont, setCont] = useState(0);
+  const [radiusD, setRadiusD] = useState("");
+  const [sourceD, setSourceD] = useState("");
+  const [targetD, setTargetD] = useState("");
+  const [nodoD, setNodoD] = useState("");
 
   const saveAs = async () => {
     const handle = await window.showSaveFilePicker({
@@ -132,6 +136,32 @@ const Control = () => {
       });
   };
 
+  const updateNode = () => {
+    //console.log("Cambios ", changes);
+    setLoading(true);
+    fetch("http://127.0.0.1:8000/graph", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        tarea: "updateNode",
+        grafoId: parseInt(grafoid),
+        id: parseInt(nodoD),
+        radius: parseInt(radiusD)
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        setTemporal(result);
+        setData(result);
+        setLoading(false);
+        setRadius("");      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const resetGraph = () => {
     console.log("Cambios ", changes);
     setLoading(true);
@@ -166,7 +196,7 @@ const Control = () => {
     }else{
       index = changes.length -2;
     }
-    console.log("vuelve ", changes[changes.length-1]["grafoId"]);
+    //console.log("vuelve ", changes[changes.length-1]["grafoId"]);
     setLoading(true);
     fetch("http://127.0.0.1:8000/graph", {
       method: "PUT",
@@ -395,7 +425,8 @@ const Control = () => {
           <button
             className="btn btn-primary"
             onClick={() => {
-              setIsShowing(false); }}
+              setIsShowing(false); 
+              setRadiusD("");}}
           >
             Editar Nodo
           </button>
@@ -459,8 +490,9 @@ const Control = () => {
                 <div
                   onClick={(e) => {
                     setSelected(`N${option.id}`);
+                    setNodoD(option.id)
                     // setIdSource(option.source)
-                    // setDistance(option.distance)
+                    setRadiusD(option.radius)
                     setIsActive(false);
                   }}
                   className="dropdown-item"
@@ -472,19 +504,20 @@ const Control = () => {
           )}
           </div>
         <br></br>
-        <label>Distancia:</label>
+        <label>Radio:</label>
         <input
           className="form-control"
-          type="text"
-          placeholder="escribe la distancia entre nodos"
-          value={distance}
-          onChange={(e) => setDistance(e.target.value)}
+          type="number"
+          placeholder="escribe el radio del nodo"
+          value={radiusD}
+          onChange={(e) => setRadiusD(e.target.value)}
         />
 
         <div className="card-footer">
-          <button className="btn btn-primary" onClick={() => {console.log("");
-          setSelected("Seleccione Nodo")}}>
-            Agregar Nodo
+          <button className="btn btn-primary" onClick={() => {updateNode();
+          setSelected("Seleccione Nodo");
+          setRadiusD("")}}>
+            Actualizar Nodo
           </button>
         </div></div>)}
           
