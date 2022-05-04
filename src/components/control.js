@@ -364,6 +364,7 @@ const Control = () => {
           <a class="dropdown-item" id='PDF'>Export PDF</a>
 		      <a class="dropdown-item" id='XLSX'>Export Excel</a>
           <a class="dropdown-item" id='PNG'>Export PNG</a>
+          <a class="dropdown-item" id='JPEG'>Export JPEG</a>
         </div>
       </li>
       <li class="nav-item dropdown">

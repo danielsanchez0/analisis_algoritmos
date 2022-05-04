@@ -350,6 +350,33 @@ export function runForceGraph(
     };
   });
 
+  const imagenJPEG = d3.select("#JPEG").on("click", function () {
+    var svgString = getSVGString(svg.node());
+    svgString2Image(svgString, 2 * width, 2 * height, "png", save);
+
+    function save(dataBlob, filesize) {
+      saveJPEG(dataBlob);
+      console.log(typeof dataBlob)
+    }
+
+    const saveJPEG = async (dataBlob) => {
+      const handle = await window.showSaveFilePicker({
+        suggestedName: "grafo.jpeg",
+        types: [
+          {
+            description: "Images",
+            accept: { "image/jpeg": [".jpeg"] },
+          },
+        ],
+        excludeAcceptAllOption: true,
+      });
+      const writer = await handle.createWritable();
+      await writer.write(dataBlob);
+      await writer.close();
+    };
+  });
+
+
   const addTooltip = (hoverTooltip, d, x, y) => {
     div.transition().duration(200).style("opacity", 0.9);
     div
