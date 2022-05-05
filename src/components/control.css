@@ -55,7 +55,7 @@
 .dropdown-submenu>.dropdown-menu{
   top: 0;
   margin-top: -5px;
-  left: 100%;
+  left: 102%;
 }
 
 .dropdown-menu>li>a:hover::after{

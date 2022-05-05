@@ -362,10 +362,49 @@ const Control = () => {
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Archivo</a>
+          <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <li class="dropdown-submenu">
+              <a class="dropdown-item dropdown-toggle" href="#">Guardar como</a>
+              <ul className="dropdown-menu">
+                <li><a class="dropdown-item" id='XML' onClick={downloadXML}>XML</a></li>
+                <li><a class="dropdown-item" id='JSON' onClick={saveAs}>JSON</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown-submenu">
+              <a class="dropdown-item dropdown-toggle" href="#">Exportar Datos</a>
+              <ul className="dropdown-menu">
+                <li><a class="dropdown-item" id='XLSX' >Excel</a></li>
+                <li class="dropdown-submenu">
+              <a class="dropdown-item dropdown-toggle" href="#">Imagen</a>
+              <ul className="dropdown-menu">
+                <li><a class="dropdown-item" id='PNG' >PNG</a></li>
+                <li><a class="dropdown-item" id='JPEG' >JPEG</a></li>
+              </ul>
+            </li>
+                <li><a class="dropdown-item" id='PDF' >PDF</a></li>
+              </ul>
+            </li>
+            
+          </ul>
+          
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Editar
           </a>
           <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-           
+          <li class="dropdown-submenu">
+              <a class="dropdown-item dropdown-toggle" href="#">Deshacer</a>
+              <ul className="dropdown-menu">
+              <li><a class="dropdown-item" href="#" onClick={()=>{back();}}>Último cambio</a></li>
+            <li><a class="dropdown-item" href="#" onClick={()=>{resetGraph();}}>Todos los cambios</a></li>
+              </ul>
+            </li>
+
+
             <li class="dropdown-submenu">
               <a class="dropdown-item dropdown-toggle" href="#">Nodo</a>
               <ul className="dropdown-menu">
@@ -385,8 +424,6 @@ const Control = () => {
                 <li><a class="dropdown-item" href="#" onClick={()=>{console.log("xd");}}>Eliminar</a></li>
               </ul>
             </li>
-            <li><a class="dropdown-item" href="#" onClick={()=>{back();}}>Deshacer último cambio</a></li>
-            <li><a class="dropdown-item" href="#" onClick={()=>{resetGraph();}}>Deshacer cambios</a></li>
           </ul>
           
         </li>
