@@ -348,62 +348,63 @@ const Control = () => {
     
     <div className="row">
       <div className="col-md-12">
-      <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-  			<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-    			<span className="navbar-toggler-icon"></span>
-  			</button>
-  			<div className="collapse navbar-collapse" id="navbarText">
-    			<ul className="navbar-nav mr-auto">
-					  <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Archivo
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" id='XML' onClick={downloadXML}>Export XML</a>
-          <a class="dropdown-item" id='JSON' onClick={saveAs}>Exportar JSON</a>
-          <a class="dropdown-item" id='PDF'>Export PDF</a>
-		      <a class="dropdown-item" id='XLSX'>Export Excel</a>
-          <a class="dropdown-item" id='PNG'>Export PNG</a>
-          <a class="dropdown-item" id='JPEG'>Export JPEG</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Editar
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" id='AddN' onClick={()=>{setShow(1);isShowing(true)}}>Agregar...</a>
-          <a class="dropdown-item" id='edN' onClick={()=>{setShow(2); isShowing(true);}}>Editar...</a>
-          {/* <a class="dropdown-item" id='delN' onClick={()=>{setShow(2);isShowing(true)}}>Eliminar Nodo</a> */}
-        </div>
-      </li>
-      
-      
-    			</ul>
-				
-    			<span className="navbar-text">
-      				
-    			</span>
-  			</div>
-		</nav>
+          </a>
+          <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+           
+            <li class="dropdown-submenu">
+              <a class="dropdown-item dropdown-toggle" href="#">Nodo</a>
+              <ul className="dropdown-menu">
+                <li><a class="dropdown-item" href="#" onClick={()=>{setShow(1); setIdNodo("");
+          setRadius("");}}>Agregar</a></li>
+                <li><a class="dropdown-item" href="#">Actualizar</a></li>
+                <li><a class="dropdown-item" href="#" onClick={()=>{console.log("xd");}}>Eliminar</a></li>
+              </ul>
+            </li>
+            <li class="dropdown-submenu">
+              <a class="dropdown-item dropdown-toggle" href="#">Arista</a>
+              <ul className="dropdown-menu">
+                <li><a class="dropdown-item" href="#" onClick={()=>{setShow(2);setDistance("0");
+                selected("Seleccione Nodo");
+                selected2("Seleccione Nodo");}} >Agregar</a></li>
+                <li><a class="dropdown-item" href="#">Actualizar</a></li>
+                <li><a class="dropdown-item" href="#" onClick={()=>{console.log("xd");}}>Eliminar</a></li>
+              </ul>
+            </li>
+            <li><a class="dropdown-item" href="#" onClick={()=>{back();}}>Deshacer último cambio</a></li>
+            <li><a class="dropdown-item" href="#" onClick={()=>{resetGraph();}}>Deshacer cambios</a></li>
+          </ul>
+          
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
       </div>
       <div className="col-md-3">
       
       {show === 1? // Agregar
         
         <div className="form-group">
-          {isShowing ? (
             <div className="card-body">
               <br />
-          <button
-            className="btn btn-primary"
-            onClick={() => {
-              setIsShowing(false); 
-            setIdNodo("");
-          setRadius("");}}
-          >
-            Agregar Arista
-          </button>
               <h2>Agregar Nodo</h2>
               <label>idNodo:</label>
               <input
@@ -431,19 +432,11 @@ const Control = () => {
                 </button>
               </div>
             </div>
-          ) : (
-            <div className="card-body">
+          
+        </div>
+        : show === 2?
+        <div className="card-body">
               <br />
-          <button
-            className="btn btn-primary"
-            onClick={() => {
-              setIsShowing(true);
-              selected("Seleccione Nodo");
-              selected2("Seleccione Nodo"); 
-            setDistance("");}}
-          >
-            Agregar Nodo
-          </button>
               <h2>Agregar Arista</h2>
               <label>Nodo Origen: </label>
               <div className="dropdown">
@@ -513,10 +506,8 @@ const Control = () => {
                 </button>
               </div>
             </div>
-          )}
-        </div>
 
-        : show === 2?  // Editar 
+        : show === 3?  // Editar 
         <div>
           {isShowing ?(<div className="card-body"> <br />
           <button
