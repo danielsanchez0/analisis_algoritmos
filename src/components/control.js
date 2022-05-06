@@ -4,10 +4,9 @@ import Loader from "react-loader-spinner";
 import { Link, useParams, useHistory } from "react-router-dom";
 import * as fs from "file-saver";
 import fileDownload from "js-file-download";
-import { FontAwesomeIcon }   from "@fortawesome/react-fontawesome";
-import {} from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {} from "@fortawesome/free-brands-svg-icons";
 import "./control.css";
-
 
 const Control = () => {
   const [show, setShow] = useState(0);
@@ -133,7 +132,7 @@ const Control = () => {
         setData(result);
         setLoading(false);
         setSelected("Seleccione nodo");
-        setSelected2("Seleccione nodo")
+        setSelected2("Seleccione nodo");
       })
       .catch((err) => {
         console.log(err);
@@ -152,7 +151,7 @@ const Control = () => {
         tarea: "updateNode",
         grafoId: parseInt(grafoid),
         id: parseInt(nodoD),
-        radius: parseInt(radiusD)
+        radius: parseInt(radiusD),
       }),
     })
       .then((res) => res.json())
@@ -161,12 +160,12 @@ const Control = () => {
         setTemporal(result);
         setData(result);
         setLoading(false);
-        setRadius("");      })
+        setRadius("");
+      })
       .catch((err) => {
         console.log(err);
       });
   };
-
 
   const deleteLink = () => {
     //console.log("Cambios ", changes);
@@ -188,7 +187,8 @@ const Control = () => {
         changes.push(result);
         setTemporal(result);
         setData(result);
-        setLoading(false);})
+        setLoading(false);
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -213,13 +213,12 @@ const Control = () => {
         changes.push(result);
         setTemporal(result);
         setData(result);
-        setLoading(false);})
+        setLoading(false);
+      })
       .catch((err) => {
         console.log(err);
       });
   };
-
-
 
   const updateLink = () => {
     //console.log("Cambios ", changes);
@@ -234,7 +233,7 @@ const Control = () => {
         grafoId: parseInt(grafoid),
         source: parseInt(sourceD),
         target: parseInt(targetD),
-        distance: parseInt(distanceD)
+        distance: parseInt(distanceD),
       }),
     })
       .then((res) => res.json())
@@ -243,7 +242,8 @@ const Control = () => {
         setTemporal(result);
         setData(result);
         setLoading(false);
-        setRadius("");})
+        setRadius("");
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -279,9 +279,9 @@ const Control = () => {
   const back = () => {
     let index = 0;
     if (changes.length === 1) {
-      index = changes.length-1;
-    }else{
-      index = changes.length -2;
+      index = changes.length - 1;
+    } else {
+      index = changes.length - 2;
     }
     //console.log("vuelve ", changes[changes.length-1]["grafoId"]);
     setLoading(true);
@@ -345,101 +345,244 @@ const Control = () => {
       width={100}
     />
   ) : (
-    
     <div className="row">
       <div className="col-md-12">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+              Navbar
+            </a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">
+                    Home
+                  </a>
+                </li>
 
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Archivo</a>
-          <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <li class="dropdown-submenu">
-              <a class="dropdown-item dropdown-toggle" href="#">Guardar como</a>
-              <ul className="dropdown-menu">
-                <li><a class="dropdown-item" id='XML' onClick={downloadXML}>XML</a></li>
-                <li><a class="dropdown-item" id='JSON' onClick={saveAs}>JSON</a></li>
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="navbarDropdownMenuLink"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Archivo
+                  </a>
+                  <ul
+                    className="dropdown-menu"
+                    aria-labelledby="navbarDropdownMenuLink"
+                  >
+                    <li class="dropdown-submenu">
+                      <a class="dropdown-item dropdown-toggle" href="#">
+                        Guardar como
+                      </a>
+                      <ul className="dropdown-menu">
+                        <li>
+                          <a
+                            class="dropdown-item"
+                            id="XML"
+                            onClick={downloadXML}
+                          >
+                            XML
+                          </a>
+                        </li>
+                        <li>
+                          <a class="dropdown-item" id="JSON" onClick={saveAs}>
+                            JSON
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+
+                    <li class="dropdown-submenu">
+                      <a class="dropdown-item dropdown-toggle" href="#">
+                        Exportar Datos
+                      </a>
+                      <ul className="dropdown-menu">
+                        <li>
+                          <a class="dropdown-item" id="XLSX">
+                            Excel
+                          </a>
+                        </li>
+                        <li class="dropdown-submenu">
+                          <a class="dropdown-item dropdown-toggle" href="#">
+                            Imagen
+                          </a>
+                          <ul className="dropdown-menu">
+                            <li>
+                              <a class="dropdown-item" id="PNG">
+                                PNG
+                              </a>
+                            </li>
+                            <li>
+                              <a class="dropdown-item" id="JPEG">
+                                JPEG
+                              </a>
+                            </li>
+                          </ul>
+                        </li>
+                        <li>
+                          <a class="dropdown-item" id="PDF">
+                            PDF
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="navbarDropdownMenuLink"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Editar
+                  </a>
+                  <ul
+                    className="dropdown-menu"
+                    aria-labelledby="navbarDropdownMenuLink"
+                  >
+                    <li class="dropdown-submenu">
+                      <a class="dropdown-item dropdown-toggle" href="#">
+                        Deshacer
+                      </a>
+                      <ul className="dropdown-menu">
+                        <li>
+                          <a
+                            class="dropdown-item"
+                            href="#"
+                            onClick={() => {
+                              back();
+                            }}
+                          >
+                            Último cambio
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            class="dropdown-item"
+                            href="#"
+                            onClick={() => {
+                              resetGraph();
+                            }}
+                          >
+                            Todos los cambios
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+
+                    <li class="dropdown-submenu">
+                      <a class="dropdown-item dropdown-toggle" href="#">
+                        Nodo
+                      </a>
+                      <ul className="dropdown-menu">
+                        <li>
+                          <a
+                            class="dropdown-item"
+                            href="#"
+                            onClick={() => {
+                              setShow(1);
+                              setIdNodo("");
+                              setRadius("");
+                            }}
+                          >
+                            Agregar
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            class="dropdown-item"
+                            href="#"
+                            onClick={() => {
+                              setShow(4);
+                              setSelected("Seleccione Nodo");
+                              setRadiusD("");
+                            }}
+                          >
+                            Actualizar
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            class="dropdown-item"
+                            href="#"
+                            onClick={() => {
+                              console.log("xd");
+                            }}
+                          >
+                            Eliminar
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                      <a class="dropdown-item dropdown-toggle" href="#">
+                        Arista
+                      </a>
+                      <ul className="dropdown-menu">
+                        <li>
+                          <a
+                            class="dropdown-item"
+                            href="#"
+                            onClick={() => {
+                              setShow(2);
+                              setDistance("0");
+                              selected("Seleccione Nodo");
+                              selected2("Seleccione Nodo");
+                            }}
+                          >
+                            Agregar
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            class="dropdown-item"
+                            href="#"
+                            onClick={() => {
+                              setShow(3);
+                              setSelected("Seleccione Arista");
+                              setDistanceD("");
+                            }}
+                          >
+                            Actualizar
+                          </a>
+                        </li>
+                        <li>
+                          <a class="dropdown-item" href="#">
+                            Eliminar
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
               </ul>
-            </li>
-
-            <li class="dropdown-submenu">
-              <a class="dropdown-item dropdown-toggle" href="#">Exportar Datos</a>
-              <ul className="dropdown-menu">
-                <li><a class="dropdown-item" id='XLSX' >Excel</a></li>
-                <li class="dropdown-submenu">
-              <a class="dropdown-item dropdown-toggle" href="#">Imagen</a>
-              <ul className="dropdown-menu">
-                <li><a class="dropdown-item" id='PNG' >PNG</a></li>
-                <li><a class="dropdown-item" id='JPEG' >JPEG</a></li>
-              </ul>
-            </li>
-                <li><a class="dropdown-item" id='PDF' >PDF</a></li>
-              </ul>
-            </li>
-            
-          </ul>
-          
-        </li>
-
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Editar
-          </a>
-          <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <li class="dropdown-submenu">
-              <a class="dropdown-item dropdown-toggle" href="#">Deshacer</a>
-              <ul className="dropdown-menu">
-              <li><a class="dropdown-item" href="#" onClick={()=>{back();}}>Último cambio</a></li>
-            <li><a class="dropdown-item" href="#" onClick={()=>{resetGraph();}}>Todos los cambios</a></li>
-              </ul>
-            </li>
-
-
-            <li class="dropdown-submenu">
-              <a class="dropdown-item dropdown-toggle" href="#">Nodo</a>
-              <ul className="dropdown-menu">
-                <li><a class="dropdown-item" href="#" onClick={()=>{setShow(1); setIdNodo("");
-          setRadius("");}}>Agregar</a></li>
-                <li><a class="dropdown-item" href="#">Actualizar</a></li>
-                <li><a class="dropdown-item" href="#" onClick={()=>{console.log("xd");}}>Eliminar</a></li>
-              </ul>
-            </li>
-            <li class="dropdown-submenu">
-              <a class="dropdown-item dropdown-toggle" href="#">Arista</a>
-              <ul className="dropdown-menu">
-                <li><a class="dropdown-item" href="#" onClick={()=>{setShow(2);setDistance("0");
-                selected("Seleccione Nodo");
-                selected2("Seleccione Nodo");}} >Agregar</a></li>
-                <li><a class="dropdown-item" href="#">Actualizar</a></li>
-                <li><a class="dropdown-item" href="#" onClick={()=>{console.log("xd");}}>Eliminar</a></li>
-              </ul>
-            </li>
-          </ul>
-          
-        </li>
-
-      </ul>
-    </div>
-  </div>
-</nav>
-
-
+            </div>
+          </div>
+        </nav>
       </div>
       <div className="col-md-3">
-      
-      {show === 1? // Agregar
-        
-        <div className="form-group">
+        {show === 1 ? ( // Agregar
+          <div className="form-group">
             <div className="card-body">
               <br />
               <h2>Agregar Nodo</h2>
@@ -449,8 +592,9 @@ const Control = () => {
                 type="number"
                 placeholder="escribe el id del Nodo"
                 value={idNodo}
-                onChange={(e) => {setIdNodo(e.target.value);
-              }}
+                onChange={(e) => {
+                  setIdNodo(e.target.value);
+                }}
               />
               <label>Radio:</label>
               <input
@@ -462,294 +606,343 @@ const Control = () => {
               />
 
               <div className="card-footer">
-                <button className="btn btn-primary" onClick={() => {addNode()
-                setRadius("");
-                setIdNodo("");}}>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => {
+                    addNode();
+                    setRadius("");
+                    setIdNodo("");
+                  }}
+                >
                   Agregar Nodo
                 </button>
               </div>
             </div>
-          
-        </div>
-        : show === 2?
-        <div className="card-body">
-              <br />
-              <h2>Agregar Arista</h2>
-              <label>Nodo Origen: </label>
-              <div className="dropdown">
-      <div className="dropdown-btn" onClick={(e) => {setIsActive(!isActive); setIsActive2(false);}}>
-        {selected}
-        <span className="fas fa-caret-down"></span>
-      </div>
-      {isActive && (
-        <div className="dropdown-content">
-          {data["nodes"].map((option) => (
-            <div
-              onClick={(e) => {
-                setSelected(option.id);
-                setIdSource(option.id)
-                setIsActive(false);
-              }}
-              className="dropdown-item"
-            >
-              {option.id}
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-              <br></br>
-              <label>Nodo Destino: </label>
-              <div className="chosen-wrapper">
-              <div className="dropdown">
-      <div className="dropdown-btn" onClick={(e) => {setIsActive2(!isActive2); setIsActive(false);}}>
-        {selected2}
-        <span className="fas fa-caret-down"></span>
-      </div>
-      {isActive2 && (
-        <div className="dropdown-content">
-          {data["nodes"].map((option) => (
-            <div
-              onClick={(e) => {
-                setSelected2(option.id);
-                setIdTarget(option.id)
-                setIsActive2(false);
-              }}
-              className="dropdown-item"
-            >
-              {option.id}
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
+          </div>
+        ) : show === 2 ? (
+          <div className="card-body">
+            <br />
+            <h2>Agregar Arista</h2>
+            <label>Nodo Origen: </label>
+            <div className="dropdown">
+              <div
+                className="dropdown-btn"
+                onClick={(e) => {
+                  setIsActive(!isActive);
+                  setIsActive2(false);
+                }}
+              >
+                {selected}
+                <span className="fas fa-caret-down"></span>
               </div>
-              <br></br>
-              <label>Distancia:</label>
-              <input
-                className="form-control"
-                type="text"
-                placeholder="escribe la distancia entre nodos"
-                value={distance}
-                onChange={(e) => setDistance(e.target.value)}
-              />
-
-              <div className="card-footer">
-                <button className="btn btn-primary" onClick={() => {addLink();
-                setDistance("0");
-                selected("Seleccione Nodo");
-                selected2("Seleccione Nodo");}}>
-                  Agregar Arista
-                </button>
+              {isActive && (
+                <div className="dropdown-content">
+                  {data["nodes"].map((option) => (
+                    <div
+                      onClick={(e) => {
+                        setSelected(option.id);
+                        setIdSource(option.id);
+                        setIsActive(false);
+                      }}
+                      className="dropdown-item"
+                    >
+                      {option.id}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+            <br></br>
+            <label>Nodo Destino: </label>
+            <div className="chosen-wrapper">
+              <div className="dropdown">
+                <div
+                  className="dropdown-btn"
+                  onClick={(e) => {
+                    setIsActive2(!isActive2);
+                    setIsActive(false);
+                  }}
+                >
+                  {selected2}
+                  <span className="fas fa-caret-down"></span>
+                </div>
+                {isActive2 && (
+                  <div className="dropdown-content">
+                    {data["nodes"].map((option) => (
+                      <div
+                        onClick={(e) => {
+                          setSelected2(option.id);
+                          setIdTarget(option.id);
+                          setIsActive2(false);
+                        }}
+                        className="dropdown-item"
+                      >
+                        {option.id}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
+            <br></br>
+            <label>Distancia:</label>
+            <input
+              className="form-control"
+              type="text"
+              placeholder="escribe la distancia entre nodos"
+              value={distance}
+              onChange={(e) => setDistance(e.target.value)}
+            />
 
-        : show === 3?  // Editar 
-        <div>
-          {isShowing ?(<div className="card-body"> <br />
-          <button
-            className="btn btn-primary"
-            onClick={() => {
-              setIsShowing(false); 
-              setRadiusD("");
-              setSelected("Seleccione Nodo")}}
-          >
-            Editar Nodo
-          </button>
+            <div className="card-footer">
+              <button
+                className="btn btn-primary"
+                onClick={() => {
+                  addLink();
+                  setDistance("0");
+                  selected("Seleccione Nodo");
+                  selected2("Seleccione Nodo");
+                }}
+              >
+                Agregar Arista
+              </button>
+            </div>
+          </div>
+        ) : show === 3 ? ( // Editar
+          <div className="card-body">
+            <br />
             <h2>Editar Arista</h2>
             <label>Arista: </label>
             <div className="dropdown">
-          <div className="dropdown-btn" onClick={(e) => {setIsActive(!isActive); setIsActive2(false);}}>
-            {selected}
-            <span className="fas fa-caret-down"></span>
-          </div>
-          {isActive && (
-            <div className="dropdown-content">
-              {data["links"].map((option) => (
-                <div
-                  onClick={(e) => {
-                    setSelected(`N${option.source} - N${option.target}`);
-                    setSourceD(option.source)
-                    setTargetD(option.target)
-                    setDistanceD(option.distance)
-                    setIsActive(false);
-                  }}
-                  className="dropdown-item"
-                >
-                  N{option.source} - N{option.target}
+              <div
+                className="dropdown-btn"
+                onClick={(e) => {
+                  setIsActive(!isActive);
+                  setIsActive2(false);
+                }}
+              >
+                {selected}
+                <span className="fas fa-caret-down"></span>
+              </div>
+              {isActive && (
+                <div className="dropdown-content">
+                  {data["links"].map((option) => (
+                    <div
+                      onClick={(e) => {
+                        setSelected(`N${option.source} - N${option.target}`);
+                        setSourceD(option.source);
+                        setTargetD(option.target);
+                        setDistanceD(option.distance);
+                        setIsActive(false);
+                      }}
+                      className="dropdown-item"
+                    >
+                      N{option.source} - N{option.target}
+                    </div>
+                  ))}
                 </div>
-              ))}
+              )}
             </div>
-          )}
+            <br></br>
+            <label>Distancia:</label>
+            <input
+              className="form-control"
+              type="number"
+              placeholder="escribe la distancia entre nodos"
+              value={distanceD}
+              onChange={(e) => setDistanceD(e.target.value)}
+            />
+            <div className="card-footer">
+              <button
+                className="btn btn-primary"
+                onClick={() => {
+                  updateLink();
+                  setSelected("Seleccione Arista");
+                  setDistanceD("");
+                }}
+              >
+                Actualizar Arista
+              </button>
+            </div>
           </div>
-        <br></br>
-        <label>Distancia:</label>
-        <input
-          className="form-control"
-          type="number"
-          placeholder="escribe la distancia entre nodos"
-          value={distanceD}
-          onChange={(e) => setDistanceD(e.target.value)}
-        />
-
-        <div className="card-footer">
-          <button className="btn btn-primary" onClick={() => {updateLink();
-          setSelected("Seleccione Arista");
-          setDistanceD("");}}>
-            Actualizar Arista
-          </button>
-        </div></div>):(<div className="card-body"> <br />
-          <button
-            className="btn btn-primary"
-            onClick={() => {
-              setIsShowing(true); 
-              setSelected("Seleccione Arista");
-            setRadiusD("");}}
-          >
-            Editar Arista
-          </button>
+        ) : show === 4 ? (
+          <div className="card-body">
+            <br />
             <h2>Editar Nodo</h2>
             <label>Nodo: </label>
             <div className="dropdown">
-          <div className="dropdown-btn" onClick={(e) => {setIsActive(!isActive); setIsActive2(false);}}>
-            {selected}
-            <span className="fas fa-caret-down"></span>
-          </div>
-          {isActive && (
-            <div className="dropdown-content">
-              {data["nodes"].map((option) => (
-                <div
-                  onClick={(e) => {
-                    setSelected(`N${option.id}`);
-                    setNodoD(option.id)
-                    // setIdSource(option.source)
-                    setRadiusD(option.radius)
-                    setIsActive(false);
-                  }}
-                  className="dropdown-item"
-                >
-                  N{option.id}
+              <div
+                className="dropdown-btn"
+                onClick={(e) => {
+                  setIsActive(!isActive);
+                  setIsActive2(false);
+                }}
+              >
+                {selected}
+                <span className="fas fa-caret-down"></span>
+              </div>
+              {isActive && (
+                <div className="dropdown-content">
+                  {data["nodes"].map((option) => (
+                    <div
+                      onClick={(e) => {
+                        setSelected(`N${option.id}`);
+                        setNodoD(option.id);
+                        // setIdSource(option.source)
+                        setRadiusD(option.radius);
+                        setIsActive(false);
+                      }}
+                      className="dropdown-item"
+                    >
+                      N{option.id}
+                    </div>
+                  ))}
                 </div>
-              ))}
+              )}
             </div>
-          )}
+            <br></br>
+            <label>Radio:</label>
+            <input
+              className="form-control"
+              type="number"
+              placeholder="escribe el radio del nodo"
+              value={radiusD}
+              onChange={(e) => setRadiusD(e.target.value)}
+            />
+            <div className="card-footer">
+              <button
+                className="btn btn-primary"
+                onClick={() => {
+                  updateNode();
+                  setSelected("Seleccione Nodo");
+                  setRadiusD("");
+                }}
+              >
+                Actualizar Nodo
+              </button>
+            </div>
           </div>
-        <br></br>
-        <label>Radio:</label>
-        <input
-          className="form-control"
-          type="number"
-          placeholder="escribe el radio del nodo"
-          value={radiusD}
-          onChange={(e) => setRadiusD(e.target.value)}
-        />
-
-        <div className="card-footer">
-          <button className="btn btn-primary" onClick={() => {updateNode();
-          setSelected("Seleccione Nodo");
-          setRadiusD("")}}>
-            Actualizar Nodo
-          </button>
-        </div></div>)}
-          
-      </div>
-
-
-
-
-      :
-      // Eliminar
-      <div>
-        {isShowing? (<div className="card-body">
-            <br />
-            <button
-              className="btn btn-primary"
-              onClick={() => {
-                setIsShowing(false); 
-                setSelected("Seleccionar Nodo")}}
-            >
-              Eliminar  Nodo
-            </button>
-              <h2>Eliminar Arista</h2>
-              <label>Arista: </label>
-              <div className="dropdown">
-            <div className="dropdown-btn" onClick={(e) => {setIsActive(!isActive); setIsActive2(false);}}>
-              {selected}
-              <span className="fas fa-caret-down"></span>
-            </div>
-            {isActive && (
-              <div className="dropdown-content">
-                {data["links"].map((option) => (
+        ) : (
+          // Eliminar
+          <div>
+            {isShowing ? (
+              <div className="card-body">
+                <br />
+                <button
+                  className="btn btn-primary"
+                  onClick={() => {
+                    setIsShowing(false);
+                    setSelected("Seleccionar Nodo");
+                  }}
+                >
+                  Eliminar Nodo
+                </button>
+                <h2>Eliminar Arista</h2>
+                <label>Arista: </label>
+                <div className="dropdown">
                   <div
+                    className="dropdown-btn"
                     onClick={(e) => {
-                      setSelected(`N${option.source} - N${option.target}`);
-                      setSourceE(option.source);
-                      setTargetE(option.target);
-                      setIsActive(false);
+                      setIsActive(!isActive);
+                      setIsActive2(false);
                     }}
-                    className="dropdown-item"
                   >
-                    N{option.source} - N{option.target}
+                    {selected}
+                    <span className="fas fa-caret-down"></span>
                   </div>
-                ))}
+                  {isActive && (
+                    <div className="dropdown-content">
+                      {data["links"].map((option) => (
+                        <div
+                          onClick={(e) => {
+                            setSelected(
+                              `N${option.source} - N${option.target}`
+                            );
+                            setSourceE(option.source);
+                            setTargetE(option.target);
+                            setIsActive(false);
+                          }}
+                          className="dropdown-item"
+                        >
+                          N{option.source} - N{option.target}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <br></br>
+
+                <div className="card-footer">
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => {
+                      deleteLink();
+                      setSelected("Seleccionar Arista");
+                    }}
+                  >
+                    Eliminar Arista
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="card-body">
+                <br />
+                <button
+                  className="btn btn-primary"
+                  onClick={() => {
+                    setIsShowing(true);
+                    setSelected("Seleccionar Arista");
+                  }}
+                >
+                  Eliminar Nodo
+                </button>
+                <h2>Eliminar Nodo</h2>
+                <label>Nodo: </label>
+                <div className="dropdown">
+                  <div
+                    className="dropdown-btn"
+                    onClick={(e) => {
+                      setIsActive(!isActive);
+                      setIsActive2(false);
+                    }}
+                  >
+                    {selected}
+                    <span className="fas fa-caret-down"></span>
+                  </div>
+                  {isActive && (
+                    <div className="dropdown-content">
+                      {data["nodes"].map((option) => (
+                        <div
+                          onClick={(e) => {
+                            setSelected(`N${option.id}`);
+                            setNodoE(option.id);
+                            setIsActive(false);
+                          }}
+                          className="dropdown-item"
+                        >
+                          N{option.id}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <br></br>
+
+                <div className="card-footer">
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => {
+                      deleteNode();
+                      setSelected("Seleccionar Nodo");
+                    }}
+                  >
+                    Eliminar Nodo
+                  </button>
+                </div>
               </div>
             )}
-            </div>
-          <br></br>
-          
-          <div className="card-footer">
-            <button className="btn btn-primary" onClick={() => {deleteLink();setSelected("Seleccionar Arista");}}>
-              Eliminar Arista
-            </button>
-          </div>
-        </div>):
-        
-        (<div className="card-body">
-        <br />
-        <button
-          className="btn btn-primary"
-          onClick={() => {
-            setIsShowing(true); 
-            setSelected("Seleccionar Arista")}}
-        >
-          Eliminar  Nodo
-        </button>
-          <h2>Eliminar Nodo</h2>
-          <label>Nodo: </label>
-          <div className="dropdown">
-        <div className="dropdown-btn" onClick={(e) => {setIsActive(!isActive); setIsActive2(false);}}>
-          {selected}
-          <span className="fas fa-caret-down"></span>
-        </div>
-        {isActive && (
-          <div className="dropdown-content">
-            {data["nodes"].map((option) => (
-              <div
-                onClick={(e) => {
-                  setSelected(`N${option.id}`);
-                  setNodoE(option.id);
-                  setIsActive(false);
-                }}
-                className="dropdown-item"
-              >
-                N{option.id}
-              </div>
-            ))}
           </div>
         )}
-        </div>
-      <br></br>
-      
-      <div className="card-footer">
-        <button className="btn btn-primary" onClick={() => {deleteNode();setSelected("Seleccionar Nodo");}}>
-          Eliminar Nodo
-        </button>
-      </div>
-    </div>)
-        
-}
-      </div>   
-        }
       </div>
       <div className="col-md-9">
         <section className="Main">
