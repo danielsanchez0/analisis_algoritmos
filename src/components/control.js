@@ -655,12 +655,12 @@ const Control = () => {
                   onClick={() => {
                     if (idNodo === "") {
                       alert("Ingrese un id para el nodo");
-                    }else if (radius === "" || parseInt(radius) <= 0) {
+                    } else if (radius === "" || parseInt(radius) <= 0) {
                       alert("Ingrese un radio mayor que 0 para el nodo");
-                    }else {
-                    addNode();
-                    setRadius("");
-                    setIdNodo("");
+                    } else {
+                      addNode();
+                      setRadius("");
+                      setIdNodo("");
                     }
                   }}
                 >
@@ -752,7 +752,7 @@ const Control = () => {
                     alert("Seleccione un nodo origen");
                   } else if (selected2 === "Seleccione Nodo") {
                     alert("Seleccione un nodo origen");
-                  } else if (distance === "0" || parseInt(distance) <0) {
+                  } else if (distance === "0" || parseInt(distance) < 0) {
                     alert("Ingrese una distancia para la arista mayor que 0");
                   } else {
                     addLink();
@@ -935,8 +935,12 @@ const Control = () => {
               <button
                 className="btn btn-primary"
                 onClick={() => {
-                  deleteLink();
-                  setSelected("Seleccionar Arista");
+                  if (selected === "Seleccionar Arista") {
+                    alert("Seleccione una arista");
+                  } else {
+                    deleteLink();
+                    setSelected("Seleccionar Arista");
+                  }
                 }}
               >
                 Eliminar Arista
@@ -984,8 +988,12 @@ const Control = () => {
                 <button
                   className="btn btn-primary"
                   onClick={() => {
-                    deleteNode();
-                    setSelected("Seleccionar Nodo");
+                    if (selected === "Seleccionar Nodo") {
+                      alert("Seleccione un nodo");
+                    } else {
+                      deleteNode();
+                      setSelected("Seleccionar Nodo");
+                    }
                   }}
                 >
                   Eliminar Nodo
