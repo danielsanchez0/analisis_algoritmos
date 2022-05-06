@@ -648,25 +648,23 @@ const Control = () => {
                 value={radius}
                 onChange={(e) => setRadius(e.target.value)}
               />
-
-              <div className="card-footer">
-                <button
-                  className="btn btn-primary"
-                  onClick={() => {
-                    if (idNodo === "") {
-                      alert("Ingrese un id para el nodo");
-                    } else if (radius === "" || parseInt(radius) <= 0) {
-                      alert("Ingrese un radio mayor que 0 para el nodo");
-                    } else {
-                      addNode();
-                      setRadius("");
-                      setIdNodo("");
-                    }
-                  }}
-                >
-                  Agregar Nodo
-                </button>
-              </div>
+              <br></br>
+              <button
+                className="btn btn-primary"
+                onClick={() => {
+                  if (idNodo === "") {
+                    alert("Ingrese un id para el nodo");
+                  } else if (radius === "" || parseInt(radius) <= 0) {
+                    alert("Ingrese un radio mayor que 0 para el nodo");
+                  } else {
+                    addNode();
+                    setRadius("");
+                    setIdNodo("");
+                  }
+                }}
+              >
+                Agregar Nodo
+              </button>
             </div>
           </div>
         ) : show === 2 ? (
@@ -743,28 +741,26 @@ const Control = () => {
               value={distance}
               onChange={(e) => setDistance(e.target.value)}
             />
-
-            <div className="card-footer">
-              <button
-                className="btn btn-primary"
-                onClick={() => {
-                  if (selected === "Seleccione Nodo") {
-                    alert("Seleccione un nodo origen");
-                  } else if (selected2 === "Seleccione Nodo") {
-                    alert("Seleccione un nodo origen");
-                  } else if (distance === "0" || parseInt(distance) < 0) {
-                    alert("Ingrese una distancia para la arista mayor que 0");
-                  } else {
-                    addLink();
-                    setDistance("0");
-                    selected("Seleccione Nodo");
-                    selected2("Seleccione Nodo");
-                  }
-                }}
-              >
-                Agregar Arista
-              </button>
-            </div>
+            <br></br>
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                if (selected === "Seleccione Nodo") {
+                  alert("Seleccione un nodo origen");
+                } else if (selected2 === "Seleccione Nodo") {
+                  alert("Seleccione un nodo origen");
+                } else if (distance === "0" || parseInt(distance) < 0) {
+                  alert("Ingrese una distancia para la arista mayor que 0");
+                } else {
+                  addLink();
+                  setDistance("0");
+                  selected("Seleccione Nodo");
+                  selected2("Seleccione Nodo");
+                }
+              }}
+            >
+              Agregar Arista
+            </button>
           </div>
         ) : show === 3 ? ( // Editar
           <div className="card-body">
@@ -810,27 +806,26 @@ const Control = () => {
               value={distanceD}
               onChange={(e) => setDistanceD(e.target.value)}
             />
-            <div className="card-footer">
-              <button
-                className="btn btn-primary"
-                onClick={() => {
-                  if (selected === "Seleccione Arista" && distanceD === "") {
-                    alert("Por favor seleccione una arista");
-                  } else if (
-                    distanceD === "" &&
-                    selected !== "Seleccione Arista"
-                  ) {
-                    alert("Por favor ingrese una distancia");
-                  } else {
-                    updateLink();
-                    setSelected("Seleccione Arista");
-                    setDistanceD("");
-                  }
-                }}
-              >
-                Actualizar Arista
-              </button>
-            </div>
+            <br></br>
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                if (selected === "Seleccione Arista" && distanceD === "") {
+                  alert("Por favor seleccione una arista");
+                } else if (
+                  distanceD === "" &&
+                  selected !== "Seleccione Arista"
+                ) {
+                  alert("Por favor ingrese una distancia");
+                } else {
+                  updateLink();
+                  setSelected("Seleccione Arista");
+                  setDistanceD("");
+                }
+              }}
+            >
+              Actualizar Arista
+            </button>
           </div>
         ) : show === 4 ? (
           <div className="card-body">
@@ -876,24 +871,24 @@ const Control = () => {
               value={radiusD}
               onChange={(e) => setRadiusD(e.target.value)}
             />
-            <div className="card-footer">
-              <button
-                className="btn btn-primary"
-                onClick={() => {
-                  if (nodoD === "Seeccione Nodo") {
-                    alert("Seleccione un nodo");
-                  } else if (radiusD === "" || parseInt(radius) <= 0) {
-                    alert("Ingrese un radio para el nodo que se mayor que 0");
-                  } else {
-                    updateNode();
-                    setSelected("Seleccione Nodo");
-                    setRadiusD("");
-                  }
-                }}
-              >
-                Actualizar Nodo
-              </button>
-            </div>
+
+            <br></br>
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                if (nodoD === "Seeccione Nodo") {
+                  alert("Seleccione un nodo");
+                } else if (radiusD === "" || parseInt(radius) <= 0) {
+                  alert("Ingrese un radio para el nodo que se mayor que 0");
+                } else {
+                  updateNode();
+                  setSelected("Seleccione Nodo");
+                  setRadiusD("");
+                }
+              }}
+            >
+              Actualizar Nodo
+            </button>
           </div>
         ) : show === 5 ? (
           <div className="card-body">
@@ -931,75 +926,69 @@ const Control = () => {
             </div>
             <br></br>
 
-            <div className="card-footer">
-              <button
-                className="btn btn-primary"
-                onClick={() => {
-                  if (selected === "Seleccionar Arista") {
-                    alert("Seleccione una arista");
-                  } else {
-                    deleteLink();
-                    setSelected("Seleccionar Arista");
-                  }
-                }}
-              >
-                Eliminar Arista
-              </button>
-            </div>
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                if (selected === "Seleccionar Arista") {
+                  alert("Seleccione una arista");
+                } else {
+                  deleteLink();
+                  setSelected("Seleccionar Arista");
+                }
+              }}
+            >
+              Eliminar Arista
+            </button>
           </div>
         ) : show === 6 ? (
           // Eliminar
-          <div>
-            <div className="card-body">
-              <br />
-              <h2>Eliminar Nodo</h2>
-              <label>Nodo: </label>
-              <div className="dropdown">
-                <div
-                  className="dropdown-btn"
-                  onClick={(e) => {
-                    setIsActive(!isActive);
-                    setIsActive2(false);
-                  }}
-                >
-                  {selected}
-                  <span className="fas fa-caret-down"></span>
+          <div className="card-body">
+            <br />
+            <h2>Eliminar Nodo</h2>
+            <label>Nodo: </label>
+            <div className="dropdown">
+              <div
+                className="dropdown-btn"
+                onClick={(e) => {
+                  setIsActive(!isActive);
+                  setIsActive2(false);
+                }}
+              >
+                {selected}
+                <span className="fas fa-caret-down"></span>
+              </div>
+              {isActive && (
+                <div className="dropdown-content">
+                  {data["nodes"].map((option) => (
+                    <div
+                      onClick={(e) => {
+                        setSelected(`N${option.id}`);
+                        setNodoE(option.id);
+                        setIsActive(false);
+                      }}
+                      className="dropdown-item"
+                    >
+                      N{option.id}
+                    </div>
+                  ))}
                 </div>
-                {isActive && (
-                  <div className="dropdown-content">
-                    {data["nodes"].map((option) => (
-                      <div
-                        onClick={(e) => {
-                          setSelected(`N${option.id}`);
-                          setNodoE(option.id);
-                          setIsActive(false);
-                        }}
-                        className="dropdown-item"
-                      >
-                        N{option.id}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-              <br></br>
-
-              <div className="card-footer">
-                <button
-                  className="btn btn-primary"
-                  onClick={() => {
-                    if (selected === "Seleccionar Nodo") {
-                      alert("Seleccione un nodo");
-                    } else {
-                      deleteNode();
-                      setSelected("Seleccionar Nodo");
-                    }
-                  }}
-                >
-                  Eliminar Nodo
-                </button>
-              </div>
+              )}
             </div>
+            <br></br>
+
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                if (selected === "Seleccionar Nodo") {
+                  alert("Seleccione un nodo");
+                } else {
+                  deleteNode();
+                  setSelected("Seleccionar Nodo");
+                }
+              }}
+            >
+              Eliminar Nodo
+            </button>
           </div>
         ) : (
           <div className="">
@@ -1015,15 +1004,6 @@ const Control = () => {
             nodeHoverTooltip={nodeHoverTooltip}
           />
         </section>
-
-        <div className="card-footer">
-          <button className="btn btn-primary" onClick={() => resetGraph()}>
-            Descartar cambios
-          </button>
-          <button className="btn btn-primary" onClick={() => back()}>
-            Descartar último
-          </button>
-        </div>
       </div>
     </div>
   );
