@@ -336,6 +336,39 @@ const Control = () => {
     return `<div>${node.name}</div>`;
   }, []);
 
+  const modal = () => {
+    <div className="modalBackground">
+      <div className="modalContainer">
+        <div className="titleCloseBtn">
+          <button
+            onClick={() => {
+              //setOpenModal(false);
+            }}
+          >
+            X
+          </button>
+        </div>
+        <div className="title">
+          <h1>Are You Sure You Want to Continue?</h1>
+        </div>
+        <div className="body">
+          <p>The next page looks amazing. Hope you want to go there!</p>
+        </div>
+        <div className="footer">
+          <button
+            onClick={() => {
+              //setOpenModal(false);
+            }}
+            id="cancelBtn"
+          >
+            Cancel
+          </button>
+          <button>Continue</button>
+        </div>
+      </div>
+    </div>;
+  };
+
   return loading ? (
     <Loader
       className="centrar"
@@ -500,9 +533,11 @@ const Control = () => {
                             class="dropdown-item"
                             href="#"
                             onClick={() => {
-                              setShow(1);
                               setIdNodo("");
                               setRadius("");
+                              setSelected("Seleccione Nodo");
+                              setSelected2("Seleccione Nodo");
+                              setShow(1);
                             }}
                           >
                             Agregar
@@ -513,9 +548,9 @@ const Control = () => {
                             class="dropdown-item"
                             href="#"
                             onClick={() => {
-                              setShow(4);
                               setSelected("Seleccione Nodo");
                               setRadiusD("");
+                              setShow(4);
                             }}
                           >
                             Actualizar
@@ -526,9 +561,9 @@ const Control = () => {
                             class="dropdown-item"
                             href="#"
                             onClick={() => {
-                              setShow(6);
                               setSelected("Seleccione Nodo");
                               setRadiusD("");
+                              setShow(6);
                             }}
                           >
                             Eliminar
@@ -546,10 +581,10 @@ const Control = () => {
                             class="dropdown-item"
                             href="#"
                             onClick={() => {
-                              setShow(2);
                               setDistance("0");
-                              selected("Seleccione Nodo");
-                              selected2("Seleccione Nodo");
+                              setSelected("Seleccione Nodo");
+                              setSelected2("Seleccione Nodo");
+                              setShow(2);
                             }}
                           >
                             Agregar
@@ -560,9 +595,9 @@ const Control = () => {
                             class="dropdown-item"
                             href="#"
                             onClick={() => {
-                              setShow(3);
                               setSelected("Seleccione Arista");
                               setDistanceD("");
+                              setShow(3);
                             }}
                           >
                             Actualizar
@@ -573,8 +608,8 @@ const Control = () => {
                             class="dropdown-item"
                             href="#"
                             onClick={() => {
-                              setShow(5);
                               setSelected("Seleccionar Arista");
+                              setShow(5);
                             }}
                           >
                             Eliminar
@@ -618,9 +653,15 @@ const Control = () => {
                 <button
                   className="btn btn-primary"
                   onClick={() => {
+                    if (idNodo === "") {
+                      alert("Ingrese un id para el nodo");
+                    }else if (radius === "" || parseInt(radius) <= 0) {
+                      alert("Ingrese un radio mayor que 0 para el nodo");
+                    }else {
                     addNode();
                     setRadius("");
                     setIdNodo("");
+                    }
                   }}
                 >
                   Agregar Nodo
@@ -707,10 +748,18 @@ const Control = () => {
               <button
                 className="btn btn-primary"
                 onClick={() => {
-                  addLink();
-                  setDistance("0");
-                  selected("Seleccione Nodo");
-                  selected2("Seleccione Nodo");
+                  if (selected === "Seleccione Nodo") {
+                    alert("Seleccione un nodo origen");
+                  } else if (selected2 === "Seleccione Nodo") {
+                    alert("Seleccione un nodo origen");
+                  } else if (distance === "0" || parseInt(distance) <0) {
+                    alert("Ingrese una distancia para la arista mayor que 0");
+                  } else {
+                    addLink();
+                    setDistance("0");
+                    selected("Seleccione Nodo");
+                    selected2("Seleccione Nodo");
+                  }
                 }}
               >
                 Agregar Arista
@@ -765,9 +814,18 @@ const Control = () => {
               <button
                 className="btn btn-primary"
                 onClick={() => {
-                  updateLink();
-                  setSelected("Seleccione Arista");
-                  setDistanceD("");
+                  if (selected === "Seleccione Arista" && distanceD === "") {
+                    alert("Por favor seleccione una arista");
+                  } else if (
+                    distanceD === "" &&
+                    selected !== "Seleccione Arista"
+                  ) {
+                    alert("Por favor ingrese una distancia");
+                  } else {
+                    updateLink();
+                    setSelected("Seleccione Arista");
+                    setDistanceD("");
+                  }
                 }}
               >
                 Actualizar Arista
@@ -822,9 +880,15 @@ const Control = () => {
               <button
                 className="btn btn-primary"
                 onClick={() => {
-                  updateNode();
-                  setSelected("Seleccione Nodo");
-                  setRadiusD("");
+                  if (nodoD === "Seeccione Nodo") {
+                    alert("Seleccione un nodo");
+                  } else if (radiusD === "" || parseInt(radius) <= 0) {
+                    alert("Ingrese un radio para el nodo que se mayor que 0");
+                  } else {
+                    updateNode();
+                    setSelected("Seleccione Nodo");
+                    setRadiusD("");
+                  }
                 }}
               >
                 Actualizar Nodo
