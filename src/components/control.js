@@ -567,7 +567,14 @@ const Control = () => {
                           </a>
                         </li>
                         <li>
-                          <a class="dropdown-item" href="#">
+                          <a
+                            class="dropdown-item"
+                            href="#"
+                            onClick={() => {
+                              setShow(5);
+                              setSelected("Seleccionar Arista");
+                            }}
+                          >
                             Eliminar
                           </a>
                         </li>
@@ -822,125 +829,112 @@ const Control = () => {
               </button>
             </div>
           </div>
+        ) : show === 5 ? (
+          <div className="card-body">
+            <br />
+            <h2>Eliminar Arista</h2>
+            <label>Arista: </label>
+            <div className="dropdown">
+              <div
+                className="dropdown-btn"
+                onClick={(e) => {
+                  setIsActive(!isActive);
+                  setIsActive2(false);
+                }}
+              >
+                {selected}
+                <span className="fas fa-caret-down"></span>
+              </div>
+              {isActive && (
+                <div className="dropdown-content">
+                  {data["links"].map((option) => (
+                    <div
+                      onClick={(e) => {
+                        setSelected(`N${option.source} - N${option.target}`);
+                        setSourceE(option.source);
+                        setTargetE(option.target);
+                        setIsActive(false);
+                      }}
+                      className="dropdown-item"
+                    >
+                      N{option.source} - N{option.target}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+            <br></br>
+
+            <div className="card-footer">
+              <button
+                className="btn btn-primary"
+                onClick={() => {
+                  deleteLink();
+                  setSelected("Seleccionar Arista");
+                }}
+              >
+                Eliminar Arista
+              </button>
+            </div>
+          </div>
         ) : (
           // Eliminar
           <div>
-            {isShowing ? (
-              <div className="card-body">
-                <br />
+            <div className="card-body">
+              <br />
+              <button
+                className="btn btn-primary"
+                onClick={() => {
+                  setIsShowing(true);
+                  setSelected("Seleccionar Arista");
+                }}
+              >
+                Eliminar Nodo
+              </button>
+              <h2>Eliminar Nodo</h2>
+              <label>Nodo: </label>
+              <div className="dropdown">
+                <div
+                  className="dropdown-btn"
+                  onClick={(e) => {
+                    setIsActive(!isActive);
+                    setIsActive2(false);
+                  }}
+                >
+                  {selected}
+                  <span className="fas fa-caret-down"></span>
+                </div>
+                {isActive && (
+                  <div className="dropdown-content">
+                    {data["nodes"].map((option) => (
+                      <div
+                        onClick={(e) => {
+                          setSelected(`N${option.id}`);
+                          setNodoE(option.id);
+                          setIsActive(false);
+                        }}
+                        className="dropdown-item"
+                      >
+                        N{option.id}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <br></br>
+
+              <div className="card-footer">
                 <button
                   className="btn btn-primary"
                   onClick={() => {
-                    setIsShowing(false);
+                    deleteNode();
                     setSelected("Seleccionar Nodo");
                   }}
                 >
                   Eliminar Nodo
                 </button>
-                <h2>Eliminar Arista</h2>
-                <label>Arista: </label>
-                <div className="dropdown">
-                  <div
-                    className="dropdown-btn"
-                    onClick={(e) => {
-                      setIsActive(!isActive);
-                      setIsActive2(false);
-                    }}
-                  >
-                    {selected}
-                    <span className="fas fa-caret-down"></span>
-                  </div>
-                  {isActive && (
-                    <div className="dropdown-content">
-                      {data["links"].map((option) => (
-                        <div
-                          onClick={(e) => {
-                            setSelected(
-                              `N${option.source} - N${option.target}`
-                            );
-                            setSourceE(option.source);
-                            setTargetE(option.target);
-                            setIsActive(false);
-                          }}
-                          className="dropdown-item"
-                        >
-                          N{option.source} - N{option.target}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-                <br></br>
-
-                <div className="card-footer">
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => {
-                      deleteLink();
-                      setSelected("Seleccionar Arista");
-                    }}
-                  >
-                    Eliminar Arista
-                  </button>
-                </div>
               </div>
-            ) : (
-              <div className="card-body">
-                <br />
-                <button
-                  className="btn btn-primary"
-                  onClick={() => {
-                    setIsShowing(true);
-                    setSelected("Seleccionar Arista");
-                  }}
-                >
-                  Eliminar Nodo
-                </button>
-                <h2>Eliminar Nodo</h2>
-                <label>Nodo: </label>
-                <div className="dropdown">
-                  <div
-                    className="dropdown-btn"
-                    onClick={(e) => {
-                      setIsActive(!isActive);
-                      setIsActive2(false);
-                    }}
-                  >
-                    {selected}
-                    <span className="fas fa-caret-down"></span>
-                  </div>
-                  {isActive && (
-                    <div className="dropdown-content">
-                      {data["nodes"].map((option) => (
-                        <div
-                          onClick={(e) => {
-                            setSelected(`N${option.id}`);
-                            setNodoE(option.id);
-                            setIsActive(false);
-                          }}
-                          className="dropdown-item"
-                        >
-                          N{option.id}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-                <br></br>
-
-                <div className="card-footer">
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => {
-                      deleteNode();
-                      setSelected("Seleccionar Nodo");
-                    }}
-                  >
-                    Eliminar Nodo
-                  </button>
-                </div>
-              </div>
-            )}
+            </div>
           </div>
         )}
       </div>
