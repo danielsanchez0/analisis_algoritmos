@@ -526,7 +526,9 @@ const Control = () => {
                             class="dropdown-item"
                             href="#"
                             onClick={() => {
-                              console.log("xd");
+                              setShow(6);
+                              setSelected("Seleccione Nodo");
+                              setRadiusD("");
                             }}
                           >
                             Eliminar
@@ -877,20 +879,11 @@ const Control = () => {
               </button>
             </div>
           </div>
-        ) : (
+        ) : show === 6 ? (
           // Eliminar
           <div>
             <div className="card-body">
               <br />
-              <button
-                className="btn btn-primary"
-                onClick={() => {
-                  setIsShowing(true);
-                  setSelected("Seleccionar Arista");
-                }}
-              >
-                Eliminar Nodo
-              </button>
               <h2>Eliminar Nodo</h2>
               <label>Nodo: </label>
               <div className="dropdown">
@@ -935,6 +928,10 @@ const Control = () => {
                 </button>
               </div>
             </div>
+          </div>
+        ) : (
+          <div className="">
+            <p>ss</p>
           </div>
         )}
       </div>
