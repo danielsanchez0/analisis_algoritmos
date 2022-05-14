@@ -336,39 +336,6 @@ const Control = () => {
     return `<div>${node.name}</div>`;
   }, []);
 
-  const modal = () => {
-    <div className="modalBackground">
-      <div className="modalContainer">
-        <div className="titleCloseBtn">
-          <button
-            onClick={() => {
-              //setOpenModal(false);
-            }}
-          >
-            X
-          </button>
-        </div>
-        <div className="title">
-          <h1>Are You Sure You Want to Continue?</h1>
-        </div>
-        <div className="body">
-          <p>The next page looks amazing. Hope you want to go there!</p>
-        </div>
-        <div className="footer">
-          <button
-            onClick={() => {
-              //setOpenModal(false);
-            }}
-            id="cancelBtn"
-          >
-            Cancel
-          </button>
-          <button>Continue</button>
-        </div>
-      </div>
-    </div>;
-  };
-
   return loading ? (
     <Loader
       className="centrar"
@@ -380,7 +347,7 @@ const Control = () => {
   ) : (
     <div className="row">
       <div className="col-md-12">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg py-1 navbar-light bg-light">
           <div class="container-fluid">
             <button
               class="navbar-toggler"
@@ -395,7 +362,6 @@ const Control = () => {
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                
                 <li class="nav-item dropdown">
                   <a
                     class="nav-link dropdown-toggle"
@@ -611,7 +577,7 @@ const Control = () => {
                     </li>
                   </ul>
                 </li>
-                
+
                 <li class="nav-item dropdown">
                   <a
                     class="nav-link dropdown-toggle"
@@ -633,51 +599,114 @@ const Control = () => {
                       </a>
                       <ul className="dropdown-menu">
                         <li>
-                          <a
-                            class="dropdown-item"
-                            href="#"
-                            onClick={() => {
-                            }}
-                          >
+                          <a class="dropdown-item" href="#" onClick={() => {}}>
                             Algoritmo 1
                           </a>
                         </li>
                         <li>
-                          <a
-                            class="dropdown-item"
-                            href="#"
-                            onClick={() => {
-                            }}
-                          >
+                          <a class="dropdown-item" href="#" onClick={() => {}}>
                             Algoritmo 2
                           </a>
                         </li>
                         <li>
-                          <a
-                            class="dropdown-item"
-                            href="#"
-                            onClick={() => {
-                            }}
-                          >
+                          <a class="dropdown-item" href="#" onClick={() => {}}>
                             Algoritmo 3
                           </a>
                         </li>
                         <li>
-                          <a
-                            class="dropdown-item"
-                            href="#"
-                            onClick={() => {
-                            }}
-                          >
+                          <a class="dropdown-item" href="#" onClick={() => {}}>
                             Algoritmo 4
                           </a>
                         </li>
                       </ul>
                     </li>
-
                   </ul>
                 </li>
 
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="navbarDropdownMenuLink"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Aplicacion
+                  </a>
+                  <ul className="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item" href="#" onClick={() => {}}>
+                        Aplicación 1
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#" onClick={() => {}}>
+                        Aplicación 2
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#" onClick={() => {}}>
+                        Aplicación 3
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#" onClick={() => {}}>
+                        Aplicación 4
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="navbarDropdownMenuLink"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Ventana
+                  </a>
+                  <ul className="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item" href="#" onClick={() => {}}>
+                        Gráfico
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#" onClick={() => {}}>
+                        Tabla
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="navbarDropdownMenuLink"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Ayuda
+                  </a>
+                  <ul className="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item" href="#" onClick={() => {}}>
+                        Ayuda
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#" onClick={() => {}}>
+                        Acerca de Grafos
+                      </a>
+                    </li>
+                  </ul>
+                </li>
               </ul>
             </div>
           </div>

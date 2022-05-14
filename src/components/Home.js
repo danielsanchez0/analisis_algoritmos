@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
+import "./control.css";
 import Loader from "react-loader-spinner";
 
 const Home = () => {
@@ -52,7 +53,7 @@ const Home = () => {
     fetch("http://127.0.0.1:8000/randomgraph", {
       headers: {
         "Content-Type": "application/json",
-      }
+      },
     })
       .then((res) => res.json())
       .then((result) => {
@@ -112,66 +113,83 @@ const Home = () => {
   return (
     <div className="home">
       <div className="row">
-      <div className="col-md-12">
-      <nav class="navbar navbar-expand-lg bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Grafos</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-
-      <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Grafo
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#" onClick={()=>{setShow(2);}}>Leer archivo</a></li>
-            <li><a class="dropdown-item" href="#" onClick={()=>{setShow(1);}}>Grafo random</a></li>
-            <li><a class="dropdown-item" href="#" onClick={()=>{setShow(3);}}>Crear Grafo</a></li>
-            <li><a class="dropdown-item" href="#" onClick={()=>{setShow(0);}}>Seleccionar Grafo</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-      </div>
-        <div className="col-md-8">
-            {
-            show ===1?
-            
-            <div className="form-group">
-            <div className="card-body">
-              <br />
-              <h2>Crear Grafo Random</h2>
-              <label>Cantidad de nodos</label>
-              <input
-                className="form-control"
-                type="number"
-                placeholder="Escribe la cantidad de nodos para el grafo"
-                value=""
-                onChange={(e) => {
-                  
-                }}
-              />
-              <label>Cantidad de Aristas</label>
-              <input
-                className="form-control"
-                type="number"
-                placeholder="Escriba la cantidad de aristas para Grafo"
-                value=""
-                onChange={(e) => {}}
-              />
-              <br></br>
-              <button className="btn btn-primary" onClick={() => createGraphRandom()}>
-                crear grafo random
+        <div className="col-md-12">
+          <nav class="navbar navbar-expand-lg py-1 navbar-light bg-light">
+            <div class="container-fluid">
+              <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span class="navbar-toggler-icon"></span>
               </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle"
+                      href="#"
+                      id="navbarDropdownMenuLink"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Ventana
+                    </a>
+                    <ul className="dropdown-menu">
+                      <li>
+                        <a class="dropdown-item" href="#" onClick={() => {}}>
+                          Gráfico
+                        </a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#" onClick={() => {}}>
+                          Tabla
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
             </div>
-          </div>
-            :show ===2?
+          </nav>
+        </div>
+        <div className="col-md-8">
+          {show === 1 ? (
+            <div className="form-group">
+              <div className="card-body">
+                <br />
+                <h2>Crear Grafo Random</h2>
+                <label>Cantidad de nodos</label>
+                <input
+                  className="form-control"
+                  type="number"
+                  placeholder="Escribe la cantidad de nodos para el grafo"
+                  value=""
+                  onChange={(e) => {}}
+                />
+                <label>Cantidad de Aristas</label>
+                <input
+                  className="form-control"
+                  type="number"
+                  placeholder="Escriba la cantidad de aristas para Grafo"
+                  value=""
+                  onChange={(e) => {}}
+                />
+                <br></br>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => createGraphRandom()}
+                >
+                  crear grafo random
+                </button>
+              </div>
+            </div>
+          ) : show === 2 ? (
             <div className="card-body">
               <h4>Crear grafo desde archivo</h4>
               <input
@@ -182,35 +200,38 @@ const Home = () => {
               />
               <br></br>
               <br></br>
-              <button className="btn btn-primary" onClick={() => subirArchivo()}>
+              <button
+                className="btn btn-primary"
+                onClick={() => subirArchivo()}
+              >
                 Insertar Archivo
               </button>
             </div>
-            : show ===3?
-          
-              <div className="card-body">
-                <div className="form-group">
-                  <div className="card-body">
-                    <label>Nombre del grafo:</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      placeholder="escribe el id del Nodo"
-                      value={grafoNombre}
-                      onChange={(e) => setGrafoNombre(e.target.value)}
-                    />
-                    <div className="card-footer">
-                      <button
-                        className="btn btn-primary"
-                        onClick={() => createGraph()}
-                      >
-                        Crear Grafo
-                      </button>
-                    </div>
+          ) : show === 3 ? (
+            <div className="card-body">
+              <div className="form-group">
+                <div className="card-body">
+                  <label>Nombre del grafo:</label>
+                  <input
+                    className="form-control"
+                    type="text"
+                    placeholder="escribe el id del Nodo"
+                    value={grafoNombre}
+                    onChange={(e) => setGrafoNombre(e.target.value)}
+                  />
+                  <div className="card-footer">
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => createGraph()}
+                    >
+                      Crear Grafo
+                    </button>
                   </div>
                 </div>
               </div>
-              :<div className="card-body">
+            </div>
+          ) : (
+            <div className="card-body">
               {loading ? (
                 <Loader
                   className="centrar"
@@ -240,7 +261,7 @@ const Home = () => {
                           >
                             ELIMINAR
                           </i>
-    
+
                           <Link
                             to={"/grafo/" + item.grafoId}
                             className="btn btn-primary"
@@ -253,8 +274,8 @@ const Home = () => {
                   })}
                 </div>
               )}
-              </div>
-            }
+            </div>
+          )}
         </div>
       </div>
     </div>
