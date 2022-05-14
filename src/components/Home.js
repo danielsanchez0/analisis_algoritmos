@@ -115,15 +115,16 @@ const Home = () => {
       <div className="col-md-12">
       <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="#">Grafos</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+
       <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
+            Grafo
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="#" onClick={()=>{setShow(2);}}>Leer archivo</a></li>
@@ -136,21 +137,23 @@ const Home = () => {
     </div>
   </div>
 </nav>
+
       </div>
         <div className="col-md-8">
             {
             show ===1?
             <div className="card-body">
+              <h4>Crear grafo random</h4>
               <button className="btn btn-primary" onClick={() => createGraphRandom()}>
                 crear grafo random
               </button>
             </div>
             :show ===2?
             <div className="card-body">
-              <h4>Crear desde archivo</h4>
+              <h4>Crear grafo desde archivo</h4>
               <input
                 type="file"
-                accept="application/JSON,.xml"
+                accept="application/JSON,application/xml"
                 name="files"
                 onChange={(e) => setFiles(e.target.files[0])}
               />
