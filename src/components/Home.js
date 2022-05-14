@@ -138,17 +138,51 @@ const Home = () => {
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
-                      Ventana
+                      Opciones Grafo
                     </a>
                     <ul className="dropdown-menu">
                       <li>
-                        <a class="dropdown-item" href="#" onClick={() => {}}>
-                          Gráfico
+                        <a
+                          class="dropdown-item"
+                          href="#"
+                          onClick={() => {
+                            setShow(2);
+                          }}
+                        >
+                          Leer archivo
                         </a>
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#" onClick={() => {}}>
-                          Tabla
+                        <a
+                          class="dropdown-item"
+                          href="#"
+                          onClick={() => {
+                            setShow(1);
+                          }}
+                        >
+                          Grafo random
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          class="dropdown-item"
+                          href="#"
+                          onClick={() => {
+                            setShow(3);
+                          }}
+                        >
+                          Crear Grafo
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          class="dropdown-item"
+                          href="#"
+                          onClick={() => {
+                            setShow(0);
+                          }}
+                        >
+                          Seleccionar Grafo
                         </a>
                       </li>
                     </ul>
