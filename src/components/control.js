@@ -7,6 +7,7 @@ import fileDownload from "js-file-download";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {} from "@fortawesome/free-brands-svg-icons";
 import "./control.css";
+import Swal from "sweetalert2";
 
 const Control = () => {
   const [show, setShow] = useState(0);
@@ -718,7 +719,7 @@ const Control = () => {
             <div className="card-body">
               <br />
               <h2>Agregar Nodo</h2>
-              <label>idNodo:</label>
+              <label>ID Nodo:</label>
               <input
                 className="form-control"
                 type="number"
@@ -741,9 +742,17 @@ const Control = () => {
                 className="btn btn-primary"
                 onClick={() => {
                   if (idNodo === "") {
-                    alert("Ingrese un id para el nodo");
+                    Swal.fire({
+                      icon: "error",
+                      title: "Oops...",
+                      text: "Ingrese un id para el nodo",
+                    });
                   } else if (radius === "" || parseInt(radius) <= 0) {
-                    alert("Ingrese un radio mayor que 0 para el nodo");
+                    Swal.fire({
+                      icon: "error",
+                      title: "Oops...",
+                      text: "El valor del radio del nodo debe ser mayor que 0",
+                    });
                   } else {
                     addNode();
                     setRadius("");
@@ -834,11 +843,23 @@ const Control = () => {
               className="btn btn-primary"
               onClick={() => {
                 if (selected === "Seleccione Nodo") {
-                  alert("Seleccione un nodo origen");
+                  Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Debe seleccionar un nodo origen",
+                  });
                 } else if (selected2 === "Seleccione Nodo") {
-                  alert("Seleccione un nodo origen");
+                  Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Debe seleccionar un nodo destino",
+                  });
                 } else if (distance === "0" || parseInt(distance) < 0) {
-                  alert("Ingrese una distancia para la arista mayor que 0");
+                  Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "La distancia para la arista mayor que 0",
+                  });
                 } else {
                   addLink();
                   setDistance("0");
@@ -899,12 +920,20 @@ const Control = () => {
               className="btn btn-primary"
               onClick={() => {
                 if (selected === "Seleccione Arista" && distanceD === "") {
-                  alert("Por favor seleccione una arista");
+                  Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Debe seleccionar una arista",
+                  });
                 } else if (
-                  distanceD === "" &&
-                  selected !== "Seleccione Arista"
+                  (distanceD === "" && selected !== "Seleccione Arista") ||
+                  (parseInt(distanceD) < 0 && selected !== "Seleccione Arista")
                 ) {
-                  alert("Por favor ingrese una distancia");
+                  Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "La distancia de la arista debe ser mayor que 0",
+                  });
                 } else {
                   updateLink();
                   setSelected("Seleccione Arista");
@@ -964,10 +993,18 @@ const Control = () => {
             <button
               className="btn btn-primary"
               onClick={() => {
-                if (nodoD === "Seeccione Nodo") {
-                  alert("Seleccione un nodo");
-                } else if (radiusD === "" || parseInt(radius) <= 0) {
-                  alert("Ingrese un radio para el nodo que se mayor que 0");
+                if (selected === "Seleccione Nodo") {
+                  Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Seleccione un nodo",
+                  });
+                } else if (radiusD === "" || parseInt(radiusD) <= 0) {
+                  Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "El radio para el nodo debe ser mayor que 0",
+                  });
                 } else {
                   updateNode();
                   setSelected("Seleccione Nodo");
@@ -1018,7 +1055,11 @@ const Control = () => {
               className="btn btn-primary"
               onClick={() => {
                 if (selected === "Seleccionar Arista") {
-                  alert("Seleccione una arista");
+                  Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Seleccione una arista",
+                  });
                 } else {
                   deleteLink();
                   setSelected("Seleccionar Arista");
@@ -1067,8 +1108,13 @@ const Control = () => {
             <button
               className="btn btn-primary"
               onClick={() => {
+                console.log("tengo " + selected);
                 if (selected === "Seleccionar Nodo") {
-                  alert("Seleccione un nodo");
+                  Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Seleccione un nodo",
+                  });
                 } else {
                   deleteNode();
                   setSelected("Seleccionar Nodo");
@@ -1079,12 +1125,19 @@ const Control = () => {
             </button>
           </div>
         ) : (
-          <div className="">
-            <p>ss</p>
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">
+              Some quick example text to build on the card title and make up the
+              bulk of the card's content.
+            </p>
           </div>
         )}
       </div>
-      <div className="col-md-9">
+      <div
+        className="col-md-9
+      "
+      >
         <section className="Main">
           <ForceGraph
             linksData={data.links}
