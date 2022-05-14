@@ -280,6 +280,7 @@ const Home = () => {
                   {data.map((item) => {
                     return (
                       <div className="card mb-5" style={{ maxWidth: "250px" }}>
+                        <br></br>
                         <img
                           className="card-img-top"
                           src="https://revistadigital.inesem.es/informatica-y-tics/files/2017/03/Sin-t%C3%ADtulo-1.png"
@@ -290,7 +291,7 @@ const Home = () => {
                           <h5 className="card-title">{item.grafoId}</h5>
                           <p className="card-text">{item.grafoName}</p>
                           <p
-                            className="btn btn-primary col-5"
+                            className="btn btn-danger col-5"
                             style={{ float: "right" }}
                             onClick={() => deleteGraph(item.grafoId)}
                           >
@@ -299,7 +300,7 @@ const Home = () => {
 
                           <Link
                             to={"/grafo/" + item.grafoId}
-                            className="btn btn-danger col-5"
+                            className="btn btn-primary col-5"
                           >
                             Abrir
                           </Link>
