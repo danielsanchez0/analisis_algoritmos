@@ -142,12 +142,35 @@ const Home = () => {
         <div className="col-md-8">
             {
             show ===1?
+            
+            <div className="form-group">
             <div className="card-body">
-              <h4>Crear grafo random</h4>
+              <br />
+              <h2>Crear Grafo Random</h2>
+              <label>Cantidad de nodos</label>
+              <input
+                className="form-control"
+                type="number"
+                placeholder="Escribe la cantidad de nodos para el grafo"
+                value=""
+                onChange={(e) => {
+                  
+                }}
+              />
+              <label>Cantidad de Aristas</label>
+              <input
+                className="form-control"
+                type="number"
+                placeholder="Escriba la cantidad de aristas para Grafo"
+                value=""
+                onChange={(e) => {}}
+              />
+              <br></br>
               <button className="btn btn-primary" onClick={() => createGraphRandom()}>
                 crear grafo random
               </button>
             </div>
+          </div>
             :show ===2?
             <div className="card-body">
               <h4>Crear grafo desde archivo</h4>
