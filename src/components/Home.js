@@ -245,6 +245,7 @@ const Home = () => {
             <div className="card-body">
               <div className="form-group">
                 <div className="card-body">
+                  <h4>Crear Grafo</h4>
                   <label>Nombre del grafo:</label>
                   <input
                     className="form-control"
@@ -253,19 +254,19 @@ const Home = () => {
                     value={grafoNombre}
                     onChange={(e) => setGrafoNombre(e.target.value)}
                   />
-                  <div className="card-footer">
-                    <button
-                      className="btn btn-primary"
-                      onClick={() => createGraph()}
-                    >
-                      Crear Grafo
-                    </button>
-                  </div>
+                  <br></br>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => createGraph()}
+                  >
+                    Crear Grafo
+                  </button>
                 </div>
               </div>
             </div>
           ) : (
             <div className="card-body">
+              <h4>Grafos disponibles</h4>
               {loading ? (
                 <Loader
                   className="centrar"
@@ -278,7 +279,7 @@ const Home = () => {
                 <div className="gallery">
                   {data.map((item) => {
                     return (
-                      <div className="card" style={{ maxWidth: "250px" }}>
+                      <div className="card mb-5" style={{ maxWidth: "250px" }}>
                         <img
                           className="card-img-top"
                           src="https://revistadigital.inesem.es/informatica-y-tics/files/2017/03/Sin-t%C3%ADtulo-1.png"
@@ -288,19 +289,19 @@ const Home = () => {
                         <div className="card-body">
                           <h5 className="card-title">{item.grafoId}</h5>
                           <p className="card-text">{item.grafoName}</p>
-                          <i
-                            className="bi bi-trash"
+                          <p
+                            className="btn btn-primary col-5"
                             style={{ float: "right" }}
                             onClick={() => deleteGraph(item.grafoId)}
                           >
-                            ELIMINAR
-                          </i>
+                            Eliminar
+                          </p>
 
                           <Link
                             to={"/grafo/" + item.grafoId}
-                            className="btn btn-primary"
+                            className="btn btn-danger col-5"
                           >
-                            Go somewhere
+                            Abrir
                           </Link>
                         </div>
                       </div>
