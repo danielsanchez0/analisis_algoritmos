@@ -11,6 +11,9 @@ const Home = () => {
   const [files, setFiles] = useState("");
   const [show, setShow] = useState(0);
 
+  const [cantNodos, setCantNodos] = useState("");
+  const [cantAristas, setCantAristas] = useState("");
+
   const loadFiles = (e) => {
     setFiles(e);
   };
@@ -49,11 +52,17 @@ const Home = () => {
   }, []);
 
   const createGraphRandom = () => {
+    console.log("llega");
     setLoading(true);
     fetch("http://127.0.0.1:8000/randomgraph", {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        cant_nodos: parseInt(cantNodos),
+        cant_aristas: parseInt(cantAristas)
+      }),
     })
       .then((res) => res.json())
       .then((result) => {
@@ -203,16 +212,16 @@ const Home = () => {
                   className="form-control"
                   type="number"
                   placeholder="Escribe la cantidad de nodos para el grafo"
-                  value=""
-                  onChange={(e) => {}}
+                  value={cantNodos}
+                  onChange={(e) => setCantNodos(e.target.value)}
                 />
                 <label>Cantidad de Aristas</label>
                 <input
                   className="form-control"
                   type="number"
                   placeholder="Escriba la cantidad de aristas para Grafo"
-                  value=""
-                  onChange={(e) => {}}
+                  value={cantAristas}
+                  onChange={(e) => setCantAristas(e.target.value)}
                 />
                 <br></br>
                 <button
