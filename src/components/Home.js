@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import "./control.css";
 import Loader from "react-loader-spinner";
+import Swal from "sweetalert2";
 
 const Home = () => {
   const history = useHistory();
@@ -61,7 +62,7 @@ const Home = () => {
       },
       body: JSON.stringify({
         cant_nodos: parseInt(cantNodos),
-        cant_aristas: parseInt(cantAristas)
+        cant_aristas: parseInt(cantAristas),
       }),
     })
       .then((res) => res.json())
@@ -169,7 +170,7 @@ const Home = () => {
                             setShow(1);
                           }}
                         >
-                          Grafo random
+                          Grafo Random
                         </a>
                       </li>
                       <li>
@@ -204,7 +205,7 @@ const Home = () => {
         <div className="col-md-8">
           {show === 1 ? (
             <div className="form-group">
-              <div className="card-body">
+              <div className="card-body col-md-6">
                 <br />
                 <h2>Crear Grafo Random</h2>
                 <label>Cantidad de nodos</label>
@@ -226,9 +227,28 @@ const Home = () => {
                 <br></br>
                 <button
                   className="btn btn-primary"
-                  onClick={() => createGraphRandom()}
+                  onClick={() => {
+                    if (cantNodos == "" || parseInt(cantNodos) <= 0) {
+                      Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "La cantidad de nodos debe ser mayor 0",
+                      });
+                    } else if (
+                      cantAristas == "" ||
+                      parseInt(cantAristas) <= 0
+                    ) {
+                      Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "La cantidad de aristas debe ser mayor 0",
+                      });
+                    } else {
+                      createGraphRandom();
+                    }
+                  }}
                 >
-                  crear grafo random
+                  Crear Grafo Random
                 </button>
               </div>
             </div>
@@ -253,20 +273,35 @@ const Home = () => {
           ) : show === 3 ? (
             <div className="card-body">
               <div className="form-group">
-                <div className="card-body">
+                <div className="card-body col-md-6">
                   <h4>Crear Grafo</h4>
                   <label>Nombre del grafo:</label>
                   <input
                     className="form-control"
                     type="text"
-                    placeholder="escribe el id del Nodo"
+                    placeholder="Escriba un nombre para el grafo"
                     value={grafoNombre}
                     onChange={(e) => setGrafoNombre(e.target.value)}
                   />
                   <br></br>
                   <button
                     className="btn btn-primary"
-                    onClick={() => createGraph()}
+                    onClick={() => {
+                      createGraph();
+                      Swal.fire({
+                        title: "Se ha creado el grafo",
+                        text: "Búsquelo por su nombre en la lista de grafos",
+                        icon: "success",
+                        showDenyButton: false,
+                        showCancelButton: false,
+                        confirmButtonText: "Ok",
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                          setGrafoNombre("");
+                          setShow(10);
+                        }
+                      });
+                    }}
                   >
                     Crear Grafo
                   </button>
