@@ -496,6 +496,8 @@ const Control = () => {
                               setRadius("");
                               setSelected("Seleccione Nodo");
                               setSelected2("Seleccione Nodo");
+                              setIsActive(false);
+                              setIsActive2(false);
                               setShow(1);
                             }}
                           >
@@ -509,6 +511,8 @@ const Control = () => {
                             onClick={() => {
                               setSelected("Seleccione Nodo");
                               setRadiusD("");
+                              setIsActive(false);
+                              setIsActive2(false);
                               setShow(4);
                             }}
                           >
@@ -522,6 +526,8 @@ const Control = () => {
                             onClick={() => {
                               setSelected("Seleccione Nodo");
                               setRadiusD("");
+                              setIsActive(false);
+                              setIsActive2(false);
                               setShow(6);
                             }}
                           >
@@ -543,6 +549,8 @@ const Control = () => {
                               setDistance("0");
                               setSelected("Seleccione Nodo");
                               setSelected2("Seleccione Nodo");
+                              setIsActive(false);
+                              setIsActive2(false);
                               setShow(2);
                             }}
                           >
@@ -556,6 +564,8 @@ const Control = () => {
                             onClick={() => {
                               setSelected("Seleccione Arista");
                               setDistanceD("");
+                              setIsActive(false);
+                              setIsActive2(false);
                               setShow(3);
                             }}
                           >
@@ -568,6 +578,8 @@ const Control = () => {
                             href="#"
                             onClick={() => {
                               setSelected("Seleccionar Arista");
+                              setIsActive(false);
+                              setIsActive2(false);
                               setShow(5);
                             }}
                           >
@@ -1126,11 +1138,7 @@ const Control = () => {
           </div>
         ) : (
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
+            <h5 class="card-title">Seleccione una opción del Menú</h5>
           </div>
         )}
       </div>
