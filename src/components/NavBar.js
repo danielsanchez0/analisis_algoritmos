@@ -7,7 +7,7 @@ const NavBar = () => {
 
   return (
     <nav className="navbar navbar-expand-lg py-1 navbar-dark bg-dark">
-      <Link className="navbar-brand" to="/homepy-5">
+      <Link className="navbar-brand" to="/home">
         <img
           className="icon"
           src="http://www.ucaldas.edu.co/docs/Web%20Relaciones%20Internacionales/images/logo.gif"
