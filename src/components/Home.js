@@ -278,8 +278,8 @@ const Home = () => {
                   <label>Nombre del grafo:</label>
                   <input
                     className="form-control"
-                    type="text"
-                    placeholder="Escriba un nombre para el grafo"
+                    type="number"
+                    placeholder="Escriba un id para el grafo"
                     value={grafoNombre}
                     onChange={(e) => setGrafoNombre(e.target.value)}
                   />
@@ -287,20 +287,28 @@ const Home = () => {
                   <button
                     className="btn btn-primary"
                     onClick={() => {
-                      createGraph();
-                      Swal.fire({
-                        title: "Se ha creado el grafo",
-                        text: "Búsquelo por su nombre en la lista de grafos",
-                        icon: "success",
-                        showDenyButton: false,
-                        showCancelButton: false,
-                        confirmButtonText: "Ok",
-                      }).then((result) => {
-                        if (result.isConfirmed) {
-                          setGrafoNombre("");
-                          setShow(10);
-                        }
-                      });
+                      if (grafoNombre == "") {
+                        Swal.fire({
+                          icon: "error",
+                          title: "Oops...",
+                          text: "Por favor ingrese una id para el grafo",
+                        });
+                      } else {
+                        createGraph();
+                        Swal.fire({
+                          title: "Se ha creado el grafo",
+                          text: "Búsquelo por su nombre en la lista de grafos",
+                          icon: "success",
+                          showDenyButton: false,
+                          showCancelButton: false,
+                          confirmButtonText: "Ok",
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                            setGrafoNombre("");
+                            setShow(10);
+                          }
+                        });
+                      }
                     }}
                   >
                     Crear Grafo
