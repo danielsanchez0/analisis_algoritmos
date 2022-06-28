@@ -12,6 +12,7 @@ import Swal from "sweetalert2";
 const Control = () => {
   const [show, setShow] = useState(0);
   const [data, setData] = useState("");
+  const [dataQ, setDataQ] = useState("");
   const [loading, setLoading] = useState(true);
   const [idNodo, setIdNodo] = useState("");
   const [radius, setRadius] = useState(0);
@@ -37,6 +38,16 @@ const Control = () => {
   const [sourceE, setSourceE] = useState("");
   const [targetE, setTargetE] = useState("");
   const [nodoE, setNodoE] = useState("");
+
+  const quey = () => {
+    setLoading(true);
+    fetch("http://127.0.0.1:8000/quey/" + grafoid, {})
+    .then((res) => res.json())
+      .then((result) => {
+        setDataQ(result);
+        setLoading(false);
+      });
+  }
 
   const saveAs = async () => {
     const handle = await window.showSaveFilePicker({
@@ -612,8 +623,8 @@ const Control = () => {
                       </a>
                       <ul className="dropdown-menu">
                         <li>
-                          <a class="dropdown-item" href="#" onClick={() => {}}>
-                            Algoritmo 1
+                          <a class="dropdown-item" href="#" onClick={() => {quey();}}>
+                            Queyranne
                           </a>
                         </li>
                         <li>
@@ -1145,14 +1156,29 @@ const Control = () => {
       <div
         className="col-md-9
       "
-      >
+      >{dataQ ?(
         <section className="Main">
           <ForceGraph
             linksData={data.links}
             nodesData={data.nodes}
             nodeHoverTooltip={nodeHoverTooltip}
           />
-        </section>
+          <ForceGraph
+            linksData={dataQ.links}
+            nodesData={dataQ.nodes}
+            nodeHoverTooltip={nodeHoverTooltip}
+          />
+        </section>):
+        ( <section className="Main">
+        <ForceGraph
+          linksData={data.links}
+          nodesData={data.nodes}
+          nodeHoverTooltip={nodeHoverTooltip}
+        />
+      </section>)
+
+      }
+        
       </div>
     </div>
   );
