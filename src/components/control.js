@@ -623,7 +623,11 @@ const Control = () => {
                       </a>
                       <ul className="dropdown-menu">
                         <li>
-                          <a class="dropdown-item" href="#" onClick={() => {quey();}}>
+                          <a class="dropdown-item" href="#" onClick={() => {
+                          setIsActive(false);
+                          setIsActive2(false);
+                          quey();
+                          setShow(7);}}>
                             Queyranne
                           </a>
                         </li>
@@ -1147,7 +1151,20 @@ const Control = () => {
               Eliminar Nodo
             </button>
           </div>
-        ) : (
+        ): show === 7 ? (
+          <div className="card-body">
+            <br />
+            <h2>Información</h2>
+            <label>Segmentos:  </label>
+            <label>{dataQ.segmentos}</label>
+            <br></br>
+            <label>Tiempo:</label>
+            <label>{dataQ.tiempo}</label>
+
+            <br></br>
+          </div>
+        ) :
+         (
           <div class="card-body">
             <h5 class="card-title">Seleccione una opción del Menú</h5>
           </div>
