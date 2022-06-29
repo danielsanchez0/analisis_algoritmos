@@ -654,7 +654,6 @@ const Control = () => {
                           <a class="dropdown-item" href="#" onClick={() => {
                             setIsActive(false);
                             setIsActive2(false);
-                            //cluster();
                             setShow(9);
                           }}>
                             Cluster
@@ -1240,7 +1239,7 @@ const Control = () => {
                   }
                 }}
               >
-                Agregar Nodo
+                Aplicar Cluster
               </button>
             </div>
           </div>
