@@ -49,6 +49,16 @@ const Control = () => {
       });
   }
 
+  const cluster = () => {
+    setLoading(true);
+    fetch("http://127.0.0.1:8000/cluster/" + grafoid, {})
+    .then((res) => res.json())
+      .then((result) => {
+        setDataQ(result);
+        setLoading(false);
+      });
+  }
+
   const saveAs = async () => {
     const handle = await window.showSaveFilePicker({
       suggestedName: "grafo.json",
@@ -632,8 +642,13 @@ const Control = () => {
                           </a>
                         </li>
                         <li>
-                          <a class="dropdown-item" href="#" onClick={() => {}}>
-                            Algoritmo 2
+                          <a class="dropdown-item" href="#" onClick={() => {
+                            setIsActive(false);
+                            setIsActive2(false);
+                            cluster();
+                            setShow(8);
+                          }}>
+                            Cluster
                           </a>
                         </li>
                         <li>
@@ -1159,11 +1174,25 @@ const Control = () => {
             <label>{dataQ.segmentos}</label>
             <br></br>
             <label>Tiempo:</label>
+            <br></br>
             <label>{dataQ.tiempo}</label>
 
             <br></br>
           </div>
-        ) :
+        ) :show === 8 ? (
+          <div className="card-body">
+            <br />
+            <h2>Información</h2>
+            <label>Clusters:  </label>
+            <label>{dataQ.segmentos}</label>
+            <br></br>
+            <label>Tiempo:</label>
+            <br></br>
+            <label>{dataQ.tiempo}</label>
+
+            <br></br>
+          </div>
+        ):
          (
           <div class="card-body">
             <h5 class="card-title">Seleccione una opción del Menú</h5>
