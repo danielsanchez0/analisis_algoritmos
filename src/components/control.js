@@ -52,7 +52,15 @@ const Control = () => {
 
   const cluster = () => {
     setLoading(true);
-    fetch("http://127.0.0.1:8000/cluster/" + grafoid, {})
+    fetch("http://127.0.0.1:8000/cluster/" + grafoid, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ncluster: parseInt(nCluster),
+      }),
+    })
     .then((res) => res.json())
       .then((result) => {
         setDataQ(result);
