@@ -38,6 +38,7 @@ const Control = () => {
   const [sourceE, setSourceE] = useState("");
   const [targetE, setTargetE] = useState("");
   const [nodoE, setNodoE] = useState("");
+  const [nCluster, setNcluster] = useState("");
 
   const quey = () => {
     setLoading(true);
@@ -645,8 +646,8 @@ const Control = () => {
                           <a class="dropdown-item" href="#" onClick={() => {
                             setIsActive(false);
                             setIsActive2(false);
-                            cluster();
-                            setShow(8);
+                            //cluster();
+                            setShow(9);
                           }}>
                             Cluster
                           </a>
@@ -1191,6 +1192,49 @@ const Control = () => {
             <label>{dataQ.tiempo}</label>
 
             <br></br>
+          </div>
+        ): show == 9?
+        (
+          <div className="form-group">
+            <div className="card-body">
+              <br />
+              <h2>Cluster</h2>
+              <label>Número de clusters:</label>
+              <input
+                className="form-control"
+                type="number"
+                placeholder="Escriba el número de clusters"
+                value={nCluster}
+                onChange={(e) => {
+                  setNcluster(e.target.value);
+                }}
+              />
+              <br></br>
+              <button
+                className="btn btn-primary"
+                onClick={() => {
+                  if (nCluster === "") {
+                    Swal.fire({
+                      icon: "error",
+                      title: "Oops...",
+                      text: "Ingrese un número de clusters",
+                    });
+                  } else if (parseInt(nCluster) <= 0) {
+                    Swal.fire({
+                      icon: "error",
+                      title: "Oops...",
+                      text: "El número de clusters debe ser mayor que 0",
+                    });
+                  } else {
+                    cluster();
+                    setShow(8);
+                    setNcluster("");
+                  }
+                }}
+              >
+                Agregar Nodo
+              </button>
+            </div>
           </div>
         ):
          (
